@@ -2,6 +2,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+
 @custom-variant dark (&:is(.dark *));
 
 :root {
@@ -163,7 +164,7 @@ body {
   }
 
   .input {
-    @apply !border-black !bg-white focus-visible: !ring-0 focus-visible: !border-black !w-full;
+    @apply !border-black !bg-white focus-visible:!ring-0 focus-visible:!border-black !w-full;
   }
 
   .rounded-border {
