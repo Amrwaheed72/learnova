@@ -14,11 +14,19 @@ const CallToAction = () => {
                 through learning conversations that feal natural and fun
             </p>
             <Image src={`/images/cta.svg`} alt="cta" width={362} height={232} />
-            <Button variant={'default'} className='dark:bg-black dark:text-white'>
-                <Image src={`/icons/plus.svg`} alt='plus' width={12} height={12} />
+            <Button
+                variant={'default'}
+                className="dark:bg-black dark:text-white"
+            >
+                <Image
+                    src={`/icons/plus.svg`}
+                    alt="plus"
+                    width={12}
+                    height={12}
+                />
                 <Link href={'/companions/new'}>
-                <p>Build a New Companions</p>
-                    </Link>
+                    <p>Build a New Companions</p>
+                </Link>
             </Button>
         </section>
     );

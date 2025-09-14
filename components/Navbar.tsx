@@ -4,10 +4,13 @@ import Image from 'next/image';
 import image from '@/public/images/logo.svg';
 import NavItems from './NavItems';
 import MobileNavList from './MobileNavList';
-
+import { SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
+import { Button } from './ui/button';
+import { LogIn } from 'lucide-react';
+import ToolTipComponent from './ToolTipComponent';
 const Navbar = () => {
     return (
-        <nav className="navbar">
+        <nav className="navbar border-b-1">
             <Link href={'/'}>
                 <div className="flex cursor-pointer items-center gap-2.5">
                     <Image src={image} alt="logo" width={46} height={44} />
@@ -21,8 +24,22 @@ const Navbar = () => {
                     <div className="flex sm:hidden">
                         <MobileNavList />
                     </div>
-                    <Link href="signin">Sign In</Link>
                     <ModeToggle />
+                    <SignedOut>
+                        <ToolTipComponent toolTipContent="sign in">
+                            <SignInButton>
+                                <Button
+                                    variant={'outline'}
+                                    className="cursor-pointer"
+                                >
+                                    <LogIn />
+                                </Button>
+                            </SignInButton>
+                        </ToolTipComponent>
+                    </SignedOut>
+                    <SignedIn>
+                        <UserButton />
+                    </SignedIn>
                 </div>
             </div>
         </nav>

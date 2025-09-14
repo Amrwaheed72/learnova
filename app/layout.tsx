@@ -3,6 +3,7 @@ import { Bricolage_Grotesque } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/components/theme-provider';
 import Navbar from '@/components/Navbar';
+import Providers from './Providers';
 
 const bricolage = Bricolage_Grotesque({
     variable: '--font-bricolage',
@@ -28,8 +29,10 @@ export default function RootLayout({
                     enableSystem
                     disableTransitionOnChange
                 >
-                    <Navbar />
-                    <main>{children}</main>
+                    <Providers>
+                        <Navbar />
+                        <main>{children}</main>
+                    </Providers>
                 </ThemeProvider>
             </body>
         </html>
