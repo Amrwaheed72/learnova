@@ -4,6 +4,7 @@ import './globals.css';
 import { ThemeProvider } from '@/components/theme-provider';
 import Navbar from '@/components/Navbar';
 import Providers from './Providers';
+import { Toaster } from '@/components/ui/sonner';
 
 const bricolage = Bricolage_Grotesque({
     variable: '--font-bricolage',
@@ -30,6 +31,7 @@ export default function RootLayout({
                     disableTransitionOnChange
                 >
                     <Providers>
+                        <Toaster position='top-right' closeButton={true} />
                         <Navbar />
                         <main>{children}</main>
                     </Providers>

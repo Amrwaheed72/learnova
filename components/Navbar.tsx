@@ -24,7 +24,6 @@ const Navbar = () => {
                     <div className="flex sm:hidden">
                         <MobileNavList />
                     </div>
-                    <ModeToggle />
                     <SignedOut>
                         <ToolTipComponent toolTipContent="sign in">
                             <SignInButton>
@@ -40,6 +39,7 @@ const Navbar = () => {
                     <SignedIn>
                         <UserButton />
                     </SignedIn>
+                    <ModeToggle />
                 </div>
             </div>
         </nav>

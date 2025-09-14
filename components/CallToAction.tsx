@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { Button } from './ui/button';
 import Link from 'next/link';
 
-const CallToAction = () => {
+const CallToAction = async () => {
     return (
         <section className="cta-section">
             <div className="cta-badge">Start Learning Your Way</div>

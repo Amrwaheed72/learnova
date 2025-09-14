@@ -7,6 +7,9 @@ import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
 
 import FormFieldComponent from './FormFieldComponent';
+import { createCompanion } from '@/lib/actions/companion.actions';
+import { redirect } from 'next/navigation';
+import { toast } from 'sonner';
 const formSchema = z.object({
     name: z.string().min(1, { message: 'Companion is Required' }),
     subject: z.string().min(1, { message: 'Subject is Required' }),
@@ -31,10 +34,14 @@ const CompanionForm = () => {
     });
 
     // 2. Define a submit handler.
-    function onSubmit(values: CompanionFormValues) {
-        // Do something with the form values.
-        // ✅ This will be type-safe and validated.
-        console.log(values);
+    async function onSubmit(values: CompanionFormValues) {
+        const companion = await createCompanion(values);
+        if (companion) {
+            toast.success('companion created successfully');
+            redirect(`/companions/${companion.id}`);
+        } else {
+            redirect('/');
+        }
     }
     return (
         <Form {...form}>
