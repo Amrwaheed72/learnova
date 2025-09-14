@@ -156,7 +156,10 @@ body {
   }
 
   .subject-badge {
-    @apply bg-black text-white rounded-4xl text-sm px-2 py-1 capitalize;
+    @apply bg-black text-white rounded-4xl text-sm px-2 py-1 capitalize
+  }
+  .subject-badge-table {
+    @apply bg-black text-white rounded-4xl text-sm px-2 py-1 capitalize dark:border-1 border-white
   }
 
   .companion-bookmark {
@@ -192,7 +195,7 @@ body {
   }
 
   .companion-list {
-    @apply rounded-4xl border border-black px-7 pt-7 pb-10 max-lg:w-full bg-white;
+    @apply rounded-4xl border-2 border-black px-7 pt-7 pb-10 max-lg:w-full dark:border-white;
   }
 
   .companion-limit {
