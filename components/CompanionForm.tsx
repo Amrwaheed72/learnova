@@ -1,5 +1,4 @@
 'use client';
-
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -10,6 +9,7 @@ import FormFieldComponent from './FormFieldComponent';
 import { createCompanion } from '@/lib/actions/companion.actions';
 import { redirect } from 'next/navigation';
 import { toast } from 'sonner';
+import { Spinner } from './ui/spinner';
 const formSchema = z.object({
     name: z.string().min(1, { message: 'Companion is Required' }),
     subject: z.string().min(1, { message: 'Subject is Required' }),
@@ -33,14 +33,14 @@ const CompanionForm = () => {
         },
     });
 
-    // 2. Define a submit handler.
     async function onSubmit(values: CompanionFormValues) {
-        const companion = await createCompanion(values);
+        const { companion, error } = await createCompanion(values);
         if (companion) {
+            console.log(companion);
             toast.success('companion created successfully');
             redirect(`/companions/${companion.id}`);
-        } else {
-            redirect('/');
+        } else if (error) {
+            toast.error(error.message);
         }
     }
     return (
@@ -88,8 +88,19 @@ const CompanionForm = () => {
                     placeholder="15"
                     type="input"
                 />
-                <Button type="submit" className="w-full cursor-pointer">
-                    Build Your Companion
+                <Button
+                    type="submit"
+                    className="w-full cursor-pointer"
+                    disabled={form.formState.isSubmitting}
+                >
+                    {form.formState.isSubmitting ? (
+                        <>
+                            <Spinner size="sm" variant="ring" />
+                            Building Your Companion
+                        </>
+                    ) : (
+                        'Build Your Companion'
+                    )}
                 </Button>
             </form>
         </Form>

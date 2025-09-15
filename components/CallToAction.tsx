@@ -1,8 +1,9 @@
 import Image from 'next/image';
-import { Button } from './ui/button';
-import Link from 'next/link';
+import { auth } from '@clerk/nextjs/server';
+import NotAuthenticated from './NotAuthenticated';
 
 const CallToAction = async () => {
+    const { userId } = await auth();
     return (
         <section className="cta-section">
             <div className="cta-badge">Start Learning Your Way</div>
@@ -14,20 +15,12 @@ const CallToAction = async () => {
                 through learning conversations that feal natural and fun
             </p>
             <Image src={`/images/cta.svg`} alt="cta" width={362} height={232} />
-            <Button
-                variant={'default'}
-                className="dark:bg-black dark:text-white"
-            >
-                <Image
-                    src={`/icons/plus.svg`}
-                    alt="plus"
-                    width={12}
-                    height={12}
-                />
-                <Link href={'/companions/new'}>
-                    <p>Build a New Companions</p>
-                </Link>
-            </Button>
+            <NotAuthenticated
+                icon="/icons/plus.svg"
+                label="Build a New Companion"
+                href={'/companions/new'}
+                userId={userId }
+            />
         </section>
     );
 };
