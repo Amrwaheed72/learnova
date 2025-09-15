@@ -1,5 +1,4 @@
 'use client';
-import Image from 'next/image';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { formUrlQuery, removeKeysFromUrlQuery } from '@jsmastery/utils';
@@ -21,31 +20,27 @@ const SubjectFilter = () => {
     const query = searchParams.get('subject') || '';
     const [searchQuery, setSearchQuery] = useState('');
     useEffect(() => {
-        const delayDebounceFn = setTimeout(() => {
-            if (searchQuery.trim()) {
-                const newUrl = formUrlQuery({
-                    params: searchParams.toString(),
-                    key: 'subject',
-                    value: searchQuery,
-                });
-                router.push(newUrl, { scroll: false });
-            } else {
-                const newUrl = removeKeysFromUrlQuery({
-                    params: searchParams.toString(),
-                    keysToRemove: ['subject'],
-                });
-                router.push(newUrl, { scroll: false });
-            }
-        }, 700);
-
-        return () => clearTimeout(delayDebounceFn);
+        if (searchQuery.trim()) {
+            const newUrl = formUrlQuery({
+                params: searchParams.toString(),
+                key: 'subject',
+                value: searchQuery,
+            });
+            router.push(newUrl, { scroll: false });
+        } else {
+            const newUrl = removeKeysFromUrlQuery({
+                params: searchParams.toString(),
+                keysToRemove: ['subject'],
+            });
+            router.push(newUrl, { scroll: false });
+        }
     }, [searchParams, searchQuery, pathname, router]);
     return (
         <Select
             value={searchQuery || 'none'}
             onValueChange={(value) => {
                 if (value === 'none') {
-                    setSearchQuery(''); // reset search
+                    setSearchQuery(''); 
                 } else {
                     setSearchQuery(value);
                 }
@@ -57,7 +52,7 @@ const SubjectFilter = () => {
             <SelectContent>
                 <SelectGroup>
                     <SelectLabel>Select a Subject</SelectLabel>
-                    <SelectItem value="none">All</SelectItem>
+                    <SelectItem value="none">All Subjects</SelectItem>
                     {subjects.map((subject) => (
                         <SelectItem value={subject} key={subject}>
                             {subject}

@@ -1,6 +1,6 @@
 'use client';
 
-import { House, Library, Menu, User } from 'lucide-react';
+import { DollarSign, House, Library, Menu, User } from 'lucide-react';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -18,6 +18,7 @@ const links = [
     { href: '/', label: 'Home', icon: <House size={18} /> },
     { href: '/companions', label: 'Companions', icon: <Library size={18} /> },
     { href: '/my-journey', label: 'My Journey', icon: <User size={18} /> },
+    { href: '/subscription', label: 'Billing', icon: <DollarSign size={18} />},
 ];
 
 const MobileNavList = () => {

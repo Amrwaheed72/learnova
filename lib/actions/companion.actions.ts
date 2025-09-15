@@ -27,6 +27,15 @@ export const getAllCompanions = async ({
     return { companions, error: null };
 };
 
+export const getOneCompanion = async (id: string) => {
+    const { data, error } = await supabase
+        .from('companions')
+        .select()
+        .eq('id', id);
+    if (error) throw error;
+    const companion = data[0];
+    return { companion, error: null };
+};
 
 export const createCompanion = async (formData: CreateCompanion) => {
     const { userId } = await auth();
