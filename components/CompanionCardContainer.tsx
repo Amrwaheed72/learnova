@@ -5,7 +5,7 @@ import ErrorFallback from './ErrorFallback';
 const CompanionCardContainer = async () => {
     const { companions, error } = await getAllCompanions({ limit: 3 });
     if (error) {
-        return <ErrorFallback message={error} />;
+        return <ErrorFallback message={error.message} />;
     }
 
     return (

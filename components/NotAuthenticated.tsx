@@ -27,7 +27,7 @@ function NotAuthenticated({ userId, href, label, icon }: Props) {
                 <Link href={href}>
                     <Button
                         variant="default"
-                        className="cursor-pointer gap-2 w-full dark:bg-black dark:text-white"
+                        className="w-full cursor-pointer gap-2 dark:bg-black dark:text-white"
                     >
                         {icon && (
                             <Image

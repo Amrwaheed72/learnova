@@ -20,7 +20,7 @@ const Page = async () => {
             <section className="home-section">
                 <Suspense
                     fallback={
-                        <div className="flex h-[50vh] items-center justify-center">
+                        <div className="flex h-[50vh] flex-1 items-center justify-center">
                             <Spinner size="lg" variant="ring" />
                         </div>
                     }

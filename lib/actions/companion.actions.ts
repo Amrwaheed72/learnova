@@ -96,7 +96,7 @@ export const getUserSessions = async (userId: string, limit = 10) => {
         .order('created_at', { ascending: false })
         .limit(limit);
     if (error) throw error;
-    const companions = data.map(({companion}) => companion);
+    const companions = data.map(({ companion }) => companion);
     return { companions, error };
 };
 

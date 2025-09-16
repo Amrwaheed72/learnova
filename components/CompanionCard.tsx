@@ -26,7 +26,7 @@ const CompanionCard = async ({
     return (
         <article
             className="companion-card"
-            style={{ backgroundColor: getSubjectColor(color) }}
+            style={{ backgroundColor: getSubjectColor(subject) }}
         >
             <div className="flex items-center justify-between">
                 <div className="subject-badge">{subject}</div>

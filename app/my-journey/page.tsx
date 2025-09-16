@@ -1,4 +1,3 @@
-import CompanionsList from '@/components/CompanionsList';
 import {
     Accordion,
     AccordionContent,
@@ -12,21 +11,27 @@ import {
 } from '@/lib/actions/companion.actions';
 import { currentUser } from '@clerk/nextjs/server';
 import Image from 'next/image';
+import { redirect } from 'next/navigation';
 
 const Page = async () => {
     const user = await currentUser();
     console.log(user);
+    if (!user) {
+        redirect('/sign-in');
+    }
     const { UserCompanions, error } = await getUserCompanions(user.id);
     const { companions: sessionHistory, error: sessionError } =
         await getUserSessions(user.id);
     console.log(UserCompanions);
+    if (error) console.error('Companions Error:', error);
+    if (sessionError) console.error('Sessions Error:', sessionError);
     return (
         <div className="min-lg:w-3/4">
             <section className="flex items-center justify-between gap-4 max-sm:flex-col">
                 <div className="flex items-center gap-4">
                     <Image
                         src={user?.imageUrl}
-                        alt={user?.firstName}
+                        alt={user?.firstName ?? 'user'}
                         width={110}
                         height={110}
                     />
