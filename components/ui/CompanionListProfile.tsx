@@ -6,7 +6,6 @@ import {
     TableHeader,
     TableRow,
 } from '@/components/ui/table';
-import { getRecentSession } from '@/lib/actions/companion.actions';
 import { cn, getSubjectColor } from '@/lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -17,12 +16,11 @@ interface Props {
     classNames?: string;
 }
 
-const CompanionsList = async ({ title, companions, classNames }: Props) => {
-    const { companions: recentCompanions, error: errorRecent } =
-        await getRecentSession();
+const CompanionListProfile = ({ title, companions, classNames }: Props) => {
+    console.log(companions);
     return (
         <article className={cn('companion-list', classNames)}>
-            <h2 className="text-3xl font-bold">Recent Sessions</h2>
+            <h2 className="text-3xl font-bold">{title}</h2>
             <Table>
                 <TableHeader>
                     <TableRow>
@@ -34,7 +32,7 @@ const CompanionsList = async ({ title, companions, classNames }: Props) => {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {recentCompanions?.map(
+                    {companions?.map(
                         ({ id, subject, topic, duration, name }) => (
                             <TableRow key={id}>
                                 <TableCell className="font-medium">
@@ -113,4 +111,4 @@ const CompanionsList = async ({ title, companions, classNames }: Props) => {
     );
 };
 
-export default CompanionsList;
+export default CompanionListProfile;

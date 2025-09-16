@@ -3,6 +3,7 @@ import { Button } from './ui/button';
 import Link from 'next/link';
 import NotAuthenticated from './NotAuthenticated';
 import { auth, currentUser } from '@clerk/nextjs/server';
+import { getSubjectColor } from '@/lib/utils';
 
 interface Props {
     id: string;
@@ -23,7 +24,10 @@ const CompanionCard = async ({
 }: Props) => {
     const { userId } = await auth();
     return (
-        <article className="companion-card" style={{ backgroundColor: color }}>
+        <article
+            className="companion-card"
+            style={{ backgroundColor: getSubjectColor(color) }}
+        >
             <div className="flex items-center justify-between">
                 <div className="subject-badge">{subject}</div>
                 <Button

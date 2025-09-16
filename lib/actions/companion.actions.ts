@@ -23,8 +23,7 @@ export const getAllCompanions = async ({
 
     query = query.range((page - 1) * limit, page * limit - 1);
     const { data: companions, error } = await query;
-    if (error) throw error;
-    return { companions, error: null };
+    return { companions, error };
 };
 
 export const getOneCompanion = async (id: string) => {
@@ -34,7 +33,7 @@ export const getOneCompanion = async (id: string) => {
         .eq('id', id);
     if (error) throw error;
     const companion = data[0];
-    return { companion, error: null };
+    return { companion, error };
 };
 
 export const createCompanion = async (formData: CreateCompanion) => {
@@ -58,5 +57,56 @@ export const createCompanion = async (formData: CreateCompanion) => {
     const companion = data[0];
     revalidatePath(`/companions/${companion.id}`);
 
-    return { companion, error: null };
+    return { companion, error };
+};
+
+export const addToSessionHistory = async (companionId: string) => {
+    const { userId } = await auth();
+    const { data, error } = await supabase
+        .from('session_history')
+        .insert({ companion_id: companionId, user_id: userId });
+    if (error) throw error;
+    revalidatePath('/');
+    return { data, error };
+};
+
+export const getRecentSession = async (
+    limit = 10,
+): Promise<{
+    companions: Companion[];
+    error: any;
+}> => {
+    const { data, error } = await supabase
+        .from('session_history')
+        .select(`companion:companion_id (id, subject, topic, duration, name)`)
+        .order('created_at', { ascending: false })
+        .limit(limit);
+
+    if (error) throw error;
+
+    const companions = data.map(({ companion }) => companion);
+    return { companions, error };
+};
+
+export const getUserSessions = async (userId: string, limit = 10) => {
+    const { data, error } = await supabase
+        .from('session_history')
+        .select(`companion:companion_id (*)`)
+        .eq('user_id', userId)
+        .order('created_at', { ascending: false })
+        .limit(limit);
+    if (error) throw error;
+    const companions = data.map(({companion}) => companion);
+    return { companions, error };
+};
+
+export const getUserCompanions = async (userId: string) => {
+    const { data, error } = await supabase
+        .from('companions')
+        .select()
+        .eq('author', userId)
+        .order('created_at', { ascending: false });
+    if (error) throw error;
+    const UserCompanions = data.map((companions) => companions);
+    return { UserCompanions, error };
 };

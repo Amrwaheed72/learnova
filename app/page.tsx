@@ -1,44 +1,35 @@
 import CallToAction from '@/components/CallToAction';
-import CompanionCard from '@/components/CompanionCard';
+import CompanionCardContainer from '@/components/CompanionCardContainer';
 import CompanionsList from '@/components/CompanionsList';
-import { recentSessions } from '@/constants';
+import { Spinner } from '@/components/ui/spinner';
+import { Suspense } from 'react';
 
-const Page = () => {
+const Page = async () => {
     return (
-        <div className='flex flex-col gap-4'>
+        <div className="flex flex-col gap-4">
             <h1>Popular Companions</h1>
+            <Suspense
+                fallback={
+                    <div className="flex h-[250px] w-full items-center justify-center">
+                        <Spinner size="md" variant="ring" />
+                    </div>
+                }
+            >
+                <CompanionCardContainer />
+            </Suspense>
             <section className="home-section">
-                <CompanionCard
-                    id="123"
-                    name="Neura The Brainy Explorer"
-                    topic="Neural Network of The Brain"
-                    subject="science"
-                    duration={45}
-                    color="#ffda6e"
-                />
-                <CompanionCard
-                    id="123"
-                    name="Neura The Brainy Explorer"
-                    topic="Neural Network of The Brain"
-                    subject="science"
-                    duration={45}
-                    color="#6e95ff"
-                />
-                <CompanionCard
-                    id="123"
-                    name="Neura The Brainy Explorer"
-                    topic="Neural Network of The Brain"
-                    subject="science"
-                    duration={45}
-                    color="#6eff89"
-                />
-            </section>
-            <section className="home-section">
-                <CompanionsList
-                    title="Recently Completed Sessions"
-                    companions={recentSessions}
-                    classNames='w-2/3 max-lg:w-full'
-                />
+                <Suspense
+                    fallback={
+                        <div className="flex h-[50vh] items-center justify-center">
+                            <Spinner size="lg" variant="ring" />
+                        </div>
+                    }
+                >
+                    <CompanionsList
+                        title="Recently Completed Sessions"
+                        classNames="w-2/3 max-lg:w-full"
+                    />
+                </Suspense>
                 <CallToAction />
             </section>
         </div>

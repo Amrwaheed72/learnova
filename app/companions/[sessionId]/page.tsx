@@ -1,4 +1,5 @@
 import CompanionComponent from '@/components/CompanionComponent';
+import ErrorFallback from '@/components/ErrorFallback';
 import { getOneCompanion } from '@/lib/actions/companion.actions';
 import { getSubjectColor } from '@/lib/utils';
 import { currentUser } from '@clerk/nextjs/server';
@@ -9,6 +10,9 @@ interface CompanionSessionPageProps {
 const Page = async ({ params }: CompanionSessionPageProps) => {
     const { sessionId } = await params;
     const { companion, error } = await getOneCompanion(sessionId);
+    if (error) {
+        return <ErrorFallback message={error} />;
+    }
     const { subject, name, topic, duration, title, voice, style } = companion;
     const user = await currentUser();
 
@@ -32,15 +36,25 @@ const Page = async ({ params }: CompanionSessionPageProps) => {
                     <div className="flex flex-col gap-2">
                         <div className="flex items-center gap-2">
                             <p className="text-2xl font-bold">{name}</p>
-                            <div className="subject-badge-table max-sm:hidden">
+                            <div className="subject-badge-table max-sm:text-xs">
                                 {subject}
                             </div>
                         </div>
                         <p className="text-lg">{topic}</p>
                     </div>
                 </div>
-                <div className="items-start text-2xl max-md:hidden">
-                    {duration}
+                <div className="flex flex-col items-center justify-between gap-2">
+                    <div className="items-start rounded-2xl border-1 px-2 text-sm max-md:hidden dark:border-white">
+                        {duration} mins
+                    </div>
+                    <div className="flex items-center justify-center gap-2">
+                        <div className="rounded-2xl border-1 px-2 text-sm max-md:hidden dark:border-white">
+                            {voice}
+                        </div>
+                        <div className="rounded-2xl border-1 px-2 text-sm max-md:hidden dark:border-white">
+                            {style}
+                        </div>
+                    </div>
                 </div>
             </article>
             <CompanionComponent
