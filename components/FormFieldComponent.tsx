@@ -1,3 +1,4 @@
+import { UseFormReturn, FieldValues, Path } from 'react-hook-form';
 import {
     FormControl,
     FormField,
@@ -16,11 +17,12 @@ import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { subjects } from '@/constants';
 
-interface Props {
-    form: any; // keep generic for now
+// 2. Make the Props interface generic
+interface Props<T extends FieldValues> {
+    form: UseFormReturn<T>;
     label: string;
     placeholder: string;
-    name: string;
+    name: Path<T>;
     type: 'select' | 'input' | 'textarea';
 }
 
@@ -31,13 +33,13 @@ const selectOptions: Record<string, string[]> = {
     subject: subjects,
 };
 
-const FormFieldComponent = ({
+const FormFieldComponent = <T extends FieldValues>({
     form,
     label,
     placeholder,
     name,
     type,
-}: Props) => {
+}: Props<T>) => {
     const options = selectOptions[name] ?? [];
 
     return (
@@ -69,7 +71,7 @@ const FormFieldComponent = ({
                                             </SelectItem>
                                         ))
                                     ) : (
-                                        <SelectItem value='' disabled>
+                                        <SelectItem value="" disabled>
                                             No options available
                                         </SelectItem>
                                     )}

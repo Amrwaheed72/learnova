@@ -39,7 +39,9 @@ const CompanionForm = () => {
         const { companion, error } = await createCompanion(values);
         if (companion) {
             console.log(companion);
-            toast.success('companion created successfully');
+            toast.success(
+                'companion created successfully, you will be directed to your companion',
+            );
             redirect(`/companions/${companion.id}`);
         } else if (error) {
             toast.error(error);
@@ -47,7 +49,6 @@ const CompanionForm = () => {
     }
     return (
         <Form {...form}>
-            
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                 <FormFieldComponent
                     form={form}
