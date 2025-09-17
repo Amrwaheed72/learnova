@@ -76,7 +76,7 @@ export const getRecentSession = async (
         .limit(limit);
 
     if (error) throw new Error(error.message);
-    if (!data || data.length === 0) throw new Error('Companions not found');
+    
     const companions = data.map(({ companion }) => companion);
     return { companions, error };
 };

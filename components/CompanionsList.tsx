@@ -22,6 +22,7 @@ import {
     AlertDialogCancel,
     AlertDialogAction,
 } from '@/components/ui/alert-dialog';
+import Empty from './Empty';
 
 interface Props {
     title: string;
@@ -32,6 +33,7 @@ interface Props {
 const CompanionsList = async ({ title, companions, classNames }: Props) => {
     const { companions: recentCompanions, error: errorRecent } =
         await getRecentSession();
+
     const { userId } = await auth();
 
     return (
