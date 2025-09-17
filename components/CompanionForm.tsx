@@ -40,7 +40,7 @@ const CompanionForm = () => {
             toast.success('companion created successfully');
             redirect(`/companions/${companion.id}`);
         } else if (error) {
-            toast.error(error.message);
+            toast.error(error);
         }
     }
     return (

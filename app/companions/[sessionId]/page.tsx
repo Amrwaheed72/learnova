@@ -1,5 +1,4 @@
 import CompanionComponent from '@/components/CompanionComponent';
-import ErrorFallback from '@/components/ErrorFallback';
 import { getOneCompanion } from '@/lib/actions/companion.actions';
 import { getSubjectColor } from '@/lib/utils';
 import { currentUser } from '@clerk/nextjs/server';
@@ -9,10 +8,8 @@ interface CompanionSessionPageProps {
 }
 const Page = async ({ params }: CompanionSessionPageProps) => {
     const { sessionId } = await params;
-    const { companion, error } = await getOneCompanion(sessionId);
-    if (error) {
-        return <ErrorFallback message={error} />;
-    }
+    const { companion } = await getOneCompanion(sessionId);
+
     const { subject, name, topic, duration, title, voice, style } = companion;
     const user = await currentUser();
 

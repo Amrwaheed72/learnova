@@ -16,8 +16,6 @@ const CompanionComponent = ({
     subject,
     name,
     topic,
-    duration,
-    title,
     companionId,
     userName,
     userImage,
@@ -95,7 +93,7 @@ const CompanionComponent = ({
             clientMessages: ['transcript'],
             serverMessages: [],
         };
-        // @ts-expect-error
+        // @ts-expect-error ignore
         vapi.start(configureAssistant(voice, style), assistentOverrids);
     };
     const handleDisconnect = async () => {
@@ -127,6 +125,7 @@ const CompanionComponent = ({
                                 width={150}
                                 height={150}
                                 className="max-sm:w-fit"
+                                priority
                             />
                         </div>
                         <div

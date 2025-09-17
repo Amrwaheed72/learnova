@@ -19,12 +19,11 @@ const Page = async () => {
     if (!user) {
         redirect('/sign-in');
     }
-    const { UserCompanions, error } = await getUserCompanions(user.id);
-    const { companions: sessionHistory, error: sessionError } =
+    const { UserCompanions } = await getUserCompanions(user.id);
+    const { companions: sessionHistory } =
         await getUserSessions(user.id);
     console.log(UserCompanions);
-    if (error) console.error('Companions Error:', error);
-    if (sessionError) console.error('Sessions Error:', sessionError);
+    
     return (
         <div className="min-lg:w-3/4">
             <section className="flex items-center justify-between gap-4 max-sm:flex-col">

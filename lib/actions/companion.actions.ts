@@ -23,6 +23,7 @@ export const getAllCompanions = async ({
 
     query = query.range((page - 1) * limit, page * limit - 1);
     const { data: companions, error } = await query;
+    if (error) throw new Error(error.message);
     return { companions, error };
 };
 
@@ -31,7 +32,8 @@ export const getOneCompanion = async (id: string) => {
         .from('companions')
         .select()
         .eq('id', id);
-    if (error) throw error;
+    if (error) throw new Error('error displaying the companion');
+    if (!data || data.length === 0) throw new Error('Companion not found');
     const companion = data[0];
     return { companion, error };
 };
@@ -42,18 +44,9 @@ export const createCompanion = async (formData: CreateCompanion) => {
         .from('companions')
         .insert({ ...formData, author: userId })
         .select();
-    if (error || !data) {
-        return {
-            data: null,
-            error: {
-                message:
-                    'Failed to create companion, please try again later or report the issue',
-                code: error?.code,
-                details: error?.details,
-                hint: error?.hint,
-            },
-        };
-    }
+    if (error) throw new Error(error.message);
+    if (!data || data.length === 0)
+        throw new Error('Could not create companion');
     const companion = data[0];
     revalidatePath(`/companions/${companion.id}`);
 
@@ -65,7 +58,7 @@ export const addToSessionHistory = async (companionId: string) => {
     const { data, error } = await supabase
         .from('session_history')
         .insert({ companion_id: companionId, user_id: userId });
-    if (error) throw error;
+    if (error) throw new Error(error.message);
     revalidatePath('/');
     return { data, error };
 };
@@ -74,7 +67,7 @@ export const getRecentSession = async (
     limit = 10,
 ): Promise<{
     companions: Companion[];
-    error: any;
+    error: string | null;
 }> => {
     const { data, error } = await supabase
         .from('session_history')
@@ -82,8 +75,8 @@ export const getRecentSession = async (
         .order('created_at', { ascending: false })
         .limit(limit);
 
-    if (error) throw error;
-
+    if (error) throw new Error(error.message);
+    if (!data || data.length === 0) throw new Error('Companions not found');
     const companions = data.map(({ companion }) => companion);
     return { companions, error };
 };
@@ -95,7 +88,8 @@ export const getUserSessions = async (userId: string, limit = 10) => {
         .eq('user_id', userId)
         .order('created_at', { ascending: false })
         .limit(limit);
-    if (error) throw error;
+    if (error) throw new Error(error.message);
+    if (!data || data.length === 0) throw new Error('Companion not found');
     const companions = data.map(({ companion }) => companion);
     return { companions, error };
 };
@@ -106,7 +100,8 @@ export const getUserCompanions = async (userId: string) => {
         .select()
         .eq('author', userId)
         .order('created_at', { ascending: false });
-    if (error) throw error;
+    if (error) throw new Error(error.message);
+    if (!data || data.length === 0) throw new Error('Companions not found');
     const UserCompanions = data.map((companions) => companions);
     return { UserCompanions, error };
 };
