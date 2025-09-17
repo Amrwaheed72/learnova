@@ -5,8 +5,8 @@ import { LucideIcon, Inbox } from 'lucide-react';
 interface EmptyProps {
     title?: string;
     message?: string;
-    icon?: LucideIcon; // Allow passing any Lucide icon
-    action?: React.ReactNode; // Optional button or link
+    icon?: LucideIcon;
+    action?: React.ReactNode; 
 }
 
 function Empty({

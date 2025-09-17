@@ -20,11 +20,9 @@ const CompanionListProfile = ({ title, companions, classNames }: Props) => {
     return (
         <article className={cn('companion-list', classNames)}>
             <h2 className="text-3xl font-bold">{title}</h2>
-            {/* FIX 1: Add w-full and table-fixed to control table layout */}
             <Table className="w-full table-fixed">
                 <TableHeader>
                     <TableRow>
-                        {/* You can also adjust column widths here if needed */}
                         <TableHead className="w-[60%] text-lg">
                             Lessons
                         </TableHead>

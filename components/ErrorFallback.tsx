@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 interface ErrorFallbackProps {
     title?: string;
     message?: string ;
-    reset?: () => void; // Optional function to reset/retry
+    reset?: () => void;
 }
 
 function ErrorFallback({

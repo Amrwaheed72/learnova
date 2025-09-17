@@ -22,7 +22,7 @@ const CompanionCard = async ({
     color,
 }: Props) => {
     const { userId } = await auth();
-    if (!userId) throw new Error('you must sign in');
+
     const { companions } = await getUserBookmarks(userId);
 
     const isBookmarked = companions.some((c) => c.id === id);
@@ -56,14 +56,6 @@ const CompanionCard = async ({
                 userId={userId}
                 icon=""
             />
-            {/* <Link href={`/companions/${id}`} className="w-full">
-                <Button
-                    variant={'ghost'}
-                    className="w-full cursor-pointer bg-black text-gray-200 hover:bg-black hover:text-gray-200 focus:bg-black focus:text-gray-200 active:bg-black active:text-gray-200 dark:bg-black dark:text-gray-200 dark:hover:bg-black dark:hover:text-gray-200 dark:focus:bg-black dark:focus:text-gray-200 dark:active:bg-black dark:active:text-gray-200"
-                >
-                    Launch Lesson
-                </Button>
-            </Link> */}
         </article>
     );
 };

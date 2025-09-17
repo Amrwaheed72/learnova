@@ -1,7 +1,5 @@
 import Link from 'next/link';
 import { ModeToggle } from './ModeToggle';
-import Image from 'next/image';
-import image from '@/public/images/logo.svg';
 import NavItems from './NavItems';
 import MobileNavList from './MobileNavList';
 import { SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';

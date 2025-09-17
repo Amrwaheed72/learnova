@@ -22,7 +22,6 @@ import {
     AlertDialogCancel,
     AlertDialogAction,
 } from '@/components/ui/alert-dialog';
-import Empty from './Empty';
 
 interface Props {
     title: string;
@@ -31,8 +30,7 @@ interface Props {
 }
 
 const CompanionsList = async ({ title, companions, classNames }: Props) => {
-    const { companions: recentCompanions, error: errorRecent } =
-        await getRecentSession();
+    const { companions: recentCompanions } = await getRecentSession();
 
     const { userId } = await auth();
 
@@ -56,7 +54,6 @@ const CompanionsList = async ({ title, companions, classNames }: Props) => {
                             <TableRow key={id}>
                                 <TableCell className="font-medium">
                                     {userId ? (
-                                        // ✅ User is logged in → go to session page directly
                                         <Link href={`/companions/${id}`}>
                                             <div className="flex cursor-pointer items-center gap-2">
                                                 <div

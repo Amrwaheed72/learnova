@@ -17,7 +17,6 @@ import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { subjects } from '@/constants';
 
-// 2. Make the Props interface generic
 interface Props<T extends FieldValues> {
     form: UseFormReturn<T>;
     label: string;
