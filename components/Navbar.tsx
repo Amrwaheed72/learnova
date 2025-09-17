@@ -13,7 +13,7 @@ const Navbar = () => {
         <nav className="navbar border-b-1">
             <Link href={'/'}>
                 <div className="flex cursor-pointer items-center gap-2.5">
-                    <Image src={image} alt="logo" width={46} height={44} />
+                    <p className='font-bold text-3xl'>Learnova</p>
                 </div>
             </Link>
             <div className="flex items-center gap-4 md:gap-8">
