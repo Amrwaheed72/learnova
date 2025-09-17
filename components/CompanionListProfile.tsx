@@ -17,7 +17,6 @@ interface Props {
 }
 
 const CompanionListProfile = ({ title, companions, classNames }: Props) => {
-    console.log(companions);
     return (
         <article className={cn('companion-list', classNames)}>
             <h2 className="text-3xl font-bold">{title}</h2>

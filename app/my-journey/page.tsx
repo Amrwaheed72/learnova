@@ -6,6 +6,7 @@ import {
 } from '@/components/ui/accordion';
 import CompanionListProfile from '@/components/CompanionListProfile';
 import {
+    getUserBookmarks,
     getUserCompanions,
     getUserSessions,
 } from '@/lib/actions/companion.actions';
@@ -15,13 +16,12 @@ import { redirect } from 'next/navigation';
 
 const Page = async () => {
     const user = await currentUser();
-    console.log(user);
     if (!user) {
         redirect('/sign-in');
     }
     const { UserCompanions } = await getUserCompanions(user.id);
     const { companions: sessionHistory } = await getUserSessions(user.id);
-    console.log(UserCompanions);
+    const { companions: BookMarked } = await getUserBookmarks(user.id);
 
     return (
         <div className="mx-auto min-lg:w-3/4">
@@ -94,6 +94,17 @@ const Page = async () => {
                         <CompanionListProfile
                             companions={UserCompanions}
                             title="My Companions"
+                        />
+                    </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="bookmarks">
+                    <AccordionTrigger className="text-2xl font-bold">
+                        My Saved Companions {BookMarked.length}
+                    </AccordionTrigger>
+                    <AccordionContent>
+                        <CompanionListProfile
+                            companions={BookMarked}
+                            title="My Saved Companions"
                         />
                     </AccordionContent>
                 </AccordionItem>

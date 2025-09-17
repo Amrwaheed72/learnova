@@ -1,12 +1,8 @@
 import { getAllCompanions } from '@/lib/actions/companion.actions';
 import CompanionCard from './CompanionCard';
-import ErrorFallback from './ErrorFallback';
 
 const CompanionCardContainer = async () => {
-    const { companions, error } = await getAllCompanions({ limit: 3 });
-    if (error) {
-        return <ErrorFallback message={error.message} />;
-    }
+    const { companions } = await getAllCompanions({ limit: 3 });
 
     return (
         <section className="home-section">

@@ -1,5 +1,9 @@
+import BookmarkButton from '@/components/BookmarkButton';
 import CompanionComponent from '@/components/CompanionComponent';
-import { getOneCompanion } from '@/lib/actions/companion.actions';
+import {
+    getOneCompanion,
+    getUserBookmarks,
+} from '@/lib/actions/companion.actions';
 import { getSubjectColor } from '@/lib/utils';
 import { currentUser } from '@clerk/nextjs/server';
 import Image from 'next/image';
@@ -10,9 +14,14 @@ const Page = async ({ params }: CompanionSessionPageProps) => {
     const { sessionId } = await params;
     const { companion } = await getOneCompanion(sessionId);
 
-    const { subject, name, topic, duration, title, voice, style } = companion;
+    const { subject, name, topic, duration, title, voice, style, id } =
+        companion;
     const user = await currentUser();
+    if (!user?.id) throw new Error('you must sign in');
 
+    const { companions } = await getUserBookmarks(user.id);
+
+    const isBookmarked = companions.some((c) => c.id === id);
     return (
         <div className="flex flex-col gap-8">
             <article className="rounded-border flex justify-between border-black p-6 max-md:flex-col dark:border-white">
@@ -41,6 +50,13 @@ const Page = async ({ params }: CompanionSessionPageProps) => {
                     </div>
                 </div>
                 <div className="flex flex-col items-center justify-between gap-2">
+                    <div className="rounded-lg border border-white">
+                        <BookmarkButton
+                            userId={user.id}
+                            isBookmarked={isBookmarked}
+                            companionId={id}
+                        />
+                    </div>
                     <div className="items-start rounded-2xl border-1 px-2 text-sm max-md:hidden dark:border-white">
                         {duration} mins
                     </div>

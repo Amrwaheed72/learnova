@@ -1,10 +1,9 @@
 import Image from 'next/image';
-import { Button } from './ui/button';
-import Link from 'next/link';
 import NotAuthenticated from './NotAuthenticated';
-import { auth, currentUser } from '@clerk/nextjs/server';
+import { auth } from '@clerk/nextjs/server';
 import { getSubjectColor } from '@/lib/utils';
-
+import BookmarkButton from './BookmarkButton';
+import { getUserBookmarks } from '@/lib/actions/companion.actions';
 interface Props {
     id: string;
     subject: string;
@@ -23,6 +22,10 @@ const CompanionCard = async ({
     color,
 }: Props) => {
     const { userId } = await auth();
+    if (!userId) throw new Error('you must sign in');
+    const { companions } = await getUserBookmarks(userId);
+
+    const isBookmarked = companions.some((c) => c.id === id);
     return (
         <article
             className="companion-card"
@@ -30,18 +33,11 @@ const CompanionCard = async ({
         >
             <div className="flex items-center justify-between">
                 <div className="subject-badge">{subject}</div>
-                <Button
-                    variant={'link'}
-                    size={'icon'}
-                    className="companion-bookmark"
-                >
-                    <Image
-                        src={'/icons/bookmark.svg'}
-                        alt="bookmark"
-                        width={12.5}
-                        height={15}
-                    />
-                </Button>
+                <BookmarkButton
+                    userId={userId}
+                    isBookmarked={isBookmarked}
+                    companionId={id}
+                />
             </div>
             <h2 className="text-2xl font-bold dark:text-black">{name} </h2>
             <p className="text-sm text-black">{topic}</p>

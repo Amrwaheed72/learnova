@@ -109,7 +109,7 @@ export const getUserCompanions = async (userId: string) => {
 export const newCompanionPermissions = async () => {
     const { userId, has } = await auth();
     const session = await auth();
-    console.log(session)
+    console.log(session);
     let limit = 0;
     if (has({ feature: 'unlimited_companions' })) {
         return true;
@@ -129,4 +129,43 @@ export const newCompanionPermissions = async () => {
     } else {
         return true;
     }
+};
+export async function addBookmark(companionId: string) {
+    const { userId } = await auth();
+    if (!userId) throw new Error('Not authenticated');
+    const { data, error } = await supabase
+        .from('bookmarks')
+        .insert({ user_id: userId, companion_id: companionId })
+        .select();
+    if (error) throw new Error(error.message);
+    revalidatePath(`/companions/${companionId}`);
+    revalidatePath(`/`);
+    revalidatePath(`/my-journey`);
+    return true; // ✅ Return "isBookmarked" = true
+}
+
+export async function removeBookmark(companionId: string) {
+    const { userId } = await auth();
+    if (!userId) throw new Error('Not authenticated');
+    const { error } = await supabase
+        .from('bookmarks')
+        .delete()
+        .eq('user_id', userId)
+        .eq('companion_id', companionId);
+    if (error) throw new Error(error.message);
+    revalidatePath(`/companions/${companionId}`);
+    revalidatePath(`/`);
+    revalidatePath(`/my-journey`);
+    return false;
+}
+
+export const getUserBookmarks = async (userId: string) => {
+    const { data, error } = await supabase
+        .from('bookmarks')
+        .select(`companion:companion_id (*)`)
+        .eq('user_id', userId)
+        .order('created_at', { ascending: false });
+    if (error) throw new Error(error.message);
+    const companions = data.map(({ companion }) => companion);
+    return { companions };
 };
