@@ -69,7 +69,7 @@ const FormFieldComponent = ({
                                             </SelectItem>
                                         ))
                                     ) : (
-                                        <SelectItem disabled>
+                                        <SelectItem value='' disabled>
                                             No options available
                                         </SelectItem>
                                     )}

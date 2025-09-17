@@ -21,12 +21,18 @@ const CompanionListProfile = ({ title, companions, classNames }: Props) => {
     return (
         <article className={cn('companion-list', classNames)}>
             <h2 className="text-3xl font-bold">{title}</h2>
-            <Table>
+            {/* FIX 1: Add w-full and table-fixed to control table layout */}
+            <Table className="w-full table-fixed">
                 <TableHeader>
                     <TableRow>
-                        <TableHead className="w-2/3 text-lg">Lessons</TableHead>
-                        <TableHead className="text-lg">Subject</TableHead>
-                        <TableHead className="text-right text-lg">
+                        {/* You can also adjust column widths here if needed */}
+                        <TableHead className="w-[60%] text-lg">
+                            Lessons
+                        </TableHead>
+                        <TableHead className="w-[20%] text-lg">
+                            Subject
+                        </TableHead>
+                        <TableHead className="w-[20%] text-right text-lg">
                             Duration
                         </TableHead>
                     </TableRow>
@@ -36,7 +42,11 @@ const CompanionListProfile = ({ title, companions, classNames }: Props) => {
                         ({ id, subject, topic, duration, name }) => (
                             <TableRow key={id}>
                                 <TableCell className="font-medium">
-                                    <Link href={`/companions/${id}`}>
+                                    {/* The overflow-hidden on the parent is important for truncate to work */}
+                                    <Link
+                                        href={`/companions/${id}`}
+                                        className="overflow-hidden"
+                                    >
                                         <div className="flex items-center gap-2">
                                             <div
                                                 className="flex size-[72px] items-center justify-center rounded-lg max-md:hidden"
@@ -54,11 +64,12 @@ const CompanionListProfile = ({ title, companions, classNames }: Props) => {
                                                     height={35}
                                                 />
                                             </div>
-                                            <div className="flex flex-col gap-2">
-                                                <p className="text-2xl font-bold">
+                                            {/* FIX 2: Handle potential text overflow */}
+                                            <div className="flex flex-col gap-2 overflow-hidden">
+                                                <p className="truncate text-2xl font-bold">
                                                     {name}
                                                 </p>
-                                                <p className="text-lg">
+                                                <p className="truncate text-lg">
                                                     {topic}
                                                 </p>
                                             </div>

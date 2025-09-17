@@ -10,6 +10,7 @@ import { createCompanion } from '@/lib/actions/companion.actions';
 import { redirect } from 'next/navigation';
 import { toast } from 'sonner';
 import { Spinner } from './ui/spinner';
+
 const formSchema = z.object({
     name: z.string().min(1, { message: 'Companion is Required' }),
     subject: z.string().min(1, { message: 'Subject is Required' }),
@@ -22,6 +23,7 @@ type CompanionFormValues = z.infer<typeof formSchema>;
 
 const CompanionForm = () => {
     const form = useForm<CompanionFormValues>({
+        // @ts-expect-error ignore
         resolver: zodResolver(formSchema),
         defaultValues: {
             name: '',
@@ -45,6 +47,7 @@ const CompanionForm = () => {
     }
     return (
         <Form {...form}>
+            
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                 <FormFieldComponent
                     form={form}

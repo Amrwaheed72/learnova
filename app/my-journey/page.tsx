@@ -4,7 +4,7 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from '@/components/ui/accordion';
-import CompanionListProfile from '@/components/ui/CompanionListProfile';
+import CompanionListProfile from '@/components/CompanionListProfile';
 import {
     getUserCompanions,
     getUserSessions,
@@ -20,19 +20,19 @@ const Page = async () => {
         redirect('/sign-in');
     }
     const { UserCompanions } = await getUserCompanions(user.id);
-    const { companions: sessionHistory } =
-        await getUserSessions(user.id);
+    const { companions: sessionHistory } = await getUserSessions(user.id);
     console.log(UserCompanions);
-    
+
     return (
-        <div className="min-lg:w-3/4">
-            <section className="flex items-center justify-between gap-4 max-sm:flex-col">
+        <div className="mx-auto min-lg:w-3/4">
+            <div className="flex items-center justify-between gap-4 max-sm:flex-col">
                 <div className="flex items-center gap-4">
                     <Image
                         src={user?.imageUrl}
                         alt={user?.firstName ?? 'user'}
                         width={110}
                         height={110}
+                        className="rounded-full"
                     />
                     <div className="flex flex-col gap-2">
                         <h1 className="text-2xl font-bold">
@@ -73,7 +73,7 @@ const Page = async () => {
                         <div>Companions Created</div>
                     </div>
                 </div>
-            </section>
+            </div>
             <Accordion type="multiple">
                 <AccordionItem value="recent">
                     <AccordionTrigger className="text-2xl font-bold">
