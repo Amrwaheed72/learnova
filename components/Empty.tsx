@@ -6,7 +6,7 @@ interface EmptyProps {
     title?: string;
     message?: string;
     icon?: LucideIcon;
-    action?: React.ReactNode; 
+    action?: React.ReactNode;
 }
 
 function Empty({

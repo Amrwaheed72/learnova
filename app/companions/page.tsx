@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
 import ToolTipComponent from '@/components/ToolTipComponent';
+import AnimatedWrapper from '@/components/AnimateWrapper';
 
 const Page = async ({ searchParams }: SearchParams) => {
     const filter = await searchParams;
@@ -40,7 +41,9 @@ const Page = async ({ searchParams }: SearchParams) => {
                     </div>
                 }
             >
-                <CompanionsList subject={subject} topic={topic} />
+                <AnimatedWrapper>
+                    <CompanionsList subject={subject} topic={topic} />
+                </AnimatedWrapper>
             </Suspense>
         </div>
     );

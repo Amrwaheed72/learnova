@@ -3,6 +3,7 @@ import CompanionCard from './CompanionCard';
 import Empty from './Empty';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
+import AnimatedWrapper from './AnimateWrapper';
 
 const CompanionCardContainer = async () => {
     const { companions } = await getAllCompanions({ limit: 3 });
@@ -25,15 +26,17 @@ const CompanionCardContainer = async () => {
     }
 
     return (
-        <section className="home-section">
-            {companions?.map((companion) => (
-                <CompanionCard
-                    key={companion.id}
-                    {...companion}
-                    color={companion.subject}
-                />
-            ))}
-        </section>
+        <AnimatedWrapper>
+            <section className="home-section">
+                {companions?.map((companion) => (
+                    <CompanionCard
+                        key={companion.id}
+                        {...companion}
+                        color={companion.subject}
+                    />
+                ))}
+            </section>
+        </AnimatedWrapper>
     );
 };
 
