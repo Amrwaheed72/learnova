@@ -16,7 +16,7 @@ const Page = async ({ searchParams }: SearchParams) => {
 
     return (
         <div className="flex w-full flex-col items-start gap-8">
-            <section className="flex w-full flex-col justify-start sm:flex-row sm:justify-between">
+            <section className="flex w-full gap-8 flex-col justify-start sm:flex-row sm:justify-between">
                 <h1>Companion Library</h1>
                 <div className="flex gap-4">
                     <ToolTipComponent toolTipContent={'Add new Companion'}>
@@ -41,7 +41,7 @@ const Page = async ({ searchParams }: SearchParams) => {
                     </div>
                 }
             >
-                <AnimatedWrapper>
+                <AnimatedWrapper type='none'>
                     <CompanionsList subject={subject} topic={topic} />
                 </AnimatedWrapper>
             </Suspense>

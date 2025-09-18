@@ -6,7 +6,7 @@ import { Spinner } from '@/components/ui/spinner';
 import { Suspense } from 'react';
 const Page = async () => {
     return (
-        <AnimatedWrapper>
+        <AnimatedWrapper type='none'>
             <div className="flex flex-col gap-4">
                 <h1>Popular Companions</h1>
                 <Suspense

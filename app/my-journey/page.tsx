@@ -25,7 +25,7 @@ const Page = async () => {
     const { companions: BookMarked } = await getUserBookmarks(user.id);
 
     return (
-        <AnimatedWrapper>
+        <AnimatedWrapper type="none">
             <div className="mx-auto min-lg:w-3/4">
                 <div className="flex items-center justify-between gap-4 max-sm:flex-col">
                     <div className="flex items-center gap-4">

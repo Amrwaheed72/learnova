@@ -26,7 +26,7 @@ const CompanionCardContainer = async () => {
     }
 
     return (
-        <AnimatedWrapper>
+        <AnimatedWrapper type='none'>
             <section className="home-section">
                 {companions?.map((companion) => (
                     <CompanionCard
