@@ -16,7 +16,11 @@ interface Props {
     classNames?: string;
 }
 
-const CompanionListProfile = ({ title, companions, classNames }: Props) => {
+const CompanionListProfile = async ({
+    title,
+    companions,
+    classNames,
+}: Props) => {
     return (
         <article className={cn('companion-list', classNames)}>
             <h2 className="text-3xl font-bold">{title}</h2>

@@ -19,9 +19,9 @@ const Page = async () => {
     if (!user) {
         redirect('/sign-in');
     }
-    const { UserCompanions } = await getUserCompanions(user.id);
-    const { companions: sessionHistory } = await getUserSessions(user.id);
-    const { companions: BookMarked } = await getUserBookmarks(user.id);
+    const { UserCompanions  } = await getUserCompanions(user.id);
+    const { companions: sessionHistory  } = await getUserSessions(user.id);
+    const { companions: BookMarked  } = await getUserBookmarks(user.id);
 
     return (
         <div className="mx-auto min-lg:w-3/4">

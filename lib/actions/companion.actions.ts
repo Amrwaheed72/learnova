@@ -89,7 +89,6 @@ export const getUserSessions = async (userId: string, limit = 10) => {
         .order('created_at', { ascending: false })
         .limit(limit);
     if (error) throw new Error(error.message);
-    if (!data || data.length === 0) throw new Error('Companion not found');
     const companions = data.map(({ companion }) => companion);
     return { companions, error };
 };
@@ -101,7 +100,6 @@ export const getUserCompanions = async (userId: string) => {
         .eq('author', userId)
         .order('created_at', { ascending: false });
     if (error) throw new Error(error.message);
-    if (!data || data.length === 0) throw new Error('Companions not found');
     const UserCompanions = data.map((companions) => companions);
     return { UserCompanions, error };
 };
