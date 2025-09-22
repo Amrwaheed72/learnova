@@ -25,8 +25,8 @@ const Page = async ({ params }: CompanionSessionPageProps) => {
     const isBookmarked = companions.some((c) => c.id === id);
     return (
         <div className="flex flex-col gap-8">
-            <AnimatedWrapper type='session'>
-                <article className="rounded-border flex justify-between border-black p-6 max-md:flex-col dark:border-white">
+            <AnimatedWrapper type="session">
+                <article className="rounded-border relative flex justify-between border-black p-6 max-md:flex-col dark:border-white">
                     <div className="flex items-center gap-2">
                         <div
                             className="flex size-[72px] items-center justify-center rounded-lg max-md:hidden"
@@ -51,7 +51,7 @@ const Page = async ({ params }: CompanionSessionPageProps) => {
                             <p className="text-lg">{topic}</p>
                         </div>
                     </div>
-                    <div className="flex flex-col items-center justify-between gap-2">
+                    <div className="absolute top-6 right-5 flex flex-1 flex-col items-center justify-between gap-2 md:top-2">
                         <div className="rounded-lg border border-white">
                             <BookmarkButton
                                 userId={user.id}

@@ -38,9 +38,7 @@ const CompanionForm = () => {
     async function onSubmit(values: CompanionFormValues) {
         const { companion, error } = await createCompanion(values);
         if (companion) {
-            toast.success(
-                'companion created successfully, you will be directed to your companion',
-            );
+            toast.success('companion created successfully');
             redirect(`/companions/${companion.id}`);
         } else if (error) {
             toast.error(error);

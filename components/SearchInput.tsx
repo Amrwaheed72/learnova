@@ -19,7 +19,6 @@ const SearchInput = () => {
                 });
                 router.push(newUrl, { scroll: false });
             } else {
-                // Remove topic from URL when input is empty
                 const newUrl = removeKeysFromUrlQuery({
                     params: searchParams.toString(),
                     keysToRemove: ['topic'],

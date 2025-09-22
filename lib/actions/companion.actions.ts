@@ -76,7 +76,7 @@ export const getRecentSession = async (
         .limit(limit);
 
     if (error) throw new Error(error.message);
-    
+
     const companions = data.map(({ companion }) => companion);
     return { companions, error };
 };
@@ -166,4 +166,21 @@ export const getUserBookmarks = async (userId: string) => {
     if (error) throw new Error(error.message);
     const companions = data.map(({ companion }) => companion);
     return { companions };
+};
+
+export const DeleteCompanion = async ({
+    userId,
+    companionId,
+}: {
+    userId: string;
+    companionId: string;
+}) => {
+    const { error } = await supabase
+        .from('companions')
+        .delete()
+        .eq('id', companionId)
+        .eq('author', userId);
+    if (error) throw new Error(error.message);
+    revalidatePath('/my-journey');
+    revalidatePath('/');
 };

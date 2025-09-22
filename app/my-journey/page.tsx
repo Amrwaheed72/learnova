@@ -85,6 +85,7 @@ const Page = async () => {
                             <CompanionListProfile
                                 companions={sessionHistory}
                                 title="Recent Sessions"
+                                type=""
                             />
                         </AccordionContent>
                     </AccordionItem>
@@ -96,6 +97,7 @@ const Page = async () => {
                             <CompanionListProfile
                                 companions={UserCompanions}
                                 title="My Companions"
+                                type="mine"
                             />
                         </AccordionContent>
                     </AccordionItem>
@@ -107,6 +109,7 @@ const Page = async () => {
                             <CompanionListProfile
                                 companions={BookMarked}
                                 title="My Saved Companions"
+                                type=""
                             />
                         </AccordionContent>
                     </AccordionItem>

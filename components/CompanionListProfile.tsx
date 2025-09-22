@@ -9,22 +9,27 @@ import {
 import { cn, getSubjectColor } from '@/lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
+import { auth } from '@clerk/nextjs/server';
+import DeleteCompanionComponent from './DeleteCompanionComponent';
 
 interface Props {
     title: string;
     companions?: Companion[];
     classNames?: string;
+    type: string;
 }
 
 const CompanionListProfile = async ({
     title,
     companions,
     classNames,
+    type,
 }: Props) => {
+    const { userId } = await auth();
     return (
         <article className={cn('companion-list', classNames)}>
             <h2 className="text-3xl font-bold">{title}</h2>
-            <Table className="w-full table-fixed">
+            <Table className="w-full table-fixed overflow-x-scroll">
                 <TableHeader>
                     <TableRow>
                         <TableHead className="w-[60%] text-lg">
@@ -36,6 +41,11 @@ const CompanionListProfile = async ({
                         <TableHead className="w-[20%] text-right text-lg">
                             Duration
                         </TableHead>
+                        {type === 'mine' && (
+                            <TableHead className="w-[20%] text-right text-lg">
+                                Options
+                            </TableHead>
+                        )}
                     </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -50,7 +60,6 @@ const CompanionListProfile = async ({
                             ({ id, subject, topic, duration, name }) => (
                                 <TableRow key={id}>
                                     <TableCell className="font-medium">
-                                        {/* The overflow-hidden on the parent is important for truncate to work */}
                                         <Link
                                             href={`/companions/${id}`}
                                             className="overflow-hidden"
@@ -72,7 +81,6 @@ const CompanionListProfile = async ({
                                                         height={35}
                                                     />
                                                 </div>
-                                                {/* FIX 2: Handle potential text overflow */}
                                                 <div className="flex flex-col gap-2 overflow-hidden">
                                                     <p className="truncate text-2xl font-bold">
                                                         {name}
@@ -120,6 +128,11 @@ const CompanionListProfile = async ({
                                                 className="md:hidden"
                                             />
                                         </div>
+                                    </TableCell>
+                                    <TableCell>
+                                        {type === 'mine' && (
+                                            <DeleteCompanionComponent companionId={id} userId={userId} />
+                                        )}
                                     </TableCell>
                                 </TableRow>
                             ),
