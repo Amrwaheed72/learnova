@@ -7,90 +7,88 @@ import { addBookmark, removeBookmark } from '@/lib/actions/companion.actions';
 import { useState, useTransition } from 'react';
 import { AlertDialog } from '@radix-ui/react-alert-dialog';
 import {
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogTrigger,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
 } from './ui/alert-dialog';
 import Link from 'next/link';
 import { Spinner } from './ui/spinner';
 
 const BookmarkButton = ({
-    companionId,
-    userId,
-    isBookmarked: initialIsBookmarked,
+  companionId,
+  userId,
+  isBookmarked: initialIsBookmarked,
 }: {
-    companionId: string;
-    isBookmarked: boolean;
-    userId: string | null;
+  companionId: string;
+  isBookmarked: boolean;
+  userId: string | null;
 }) => {
-    const [pending, startTransition] = useTransition();
-    const [isBookmarked, setIsBookmarked] = useState(initialIsBookmarked);
-    const toggleBookmark = () => {
-        startTransition(async () => {
-            try {
-                const result = isBookmarked
-                    ? await removeBookmark(companionId)
-                    : await addBookmark(companionId);
+  const [pending, startTransition] = useTransition();
+  const [isBookmarked, setIsBookmarked] = useState(initialIsBookmarked);
+  const toggleBookmark = () => {
+    startTransition(async () => {
+      try {
+        const result = isBookmarked
+          ? await removeBookmark(companionId)
+          : await addBookmark(companionId);
 
-                setIsBookmarked(result);
-                toast.success(
-                    result
-                        ? 'Companion saved successfully'
-                        : 'Companion unsaved successfully',
-                );
-            } catch (error) {
-                console.error(error);
-            }
-        });
-    };
-    return (
-        <AlertDialog>
-            <AlertDialogTrigger asChild>
-                <Button
-                    onClick={toggleBookmark}
-                    variant="link"
-                    size="icon"
-                    className="companion-bookmark"
-                >
-                    {pending ? (
-                        <Spinner variant="ring" size="sm" />
-                    ) : (
-                        <Image
-                            src={`${isBookmarked ? '/icons/bookmark-filled.svg' : '/icons/bookmark.svg'}`}
-                            alt="bookmark"
-                            width={12.5}
-                            height={15}
-                        />
-                    )}
-                </Button>
-            </AlertDialogTrigger>
-            {!userId && (
-                <AlertDialogContent>
-                    <>
-                        <AlertDialogHeader>
-                            <AlertDialogTitle>
-                                Sign in required!
-                            </AlertDialogTitle>
-                            <AlertDialogDescription>
-                                You must sign in to perform this action.
-                            </AlertDialogDescription>
-                        </AlertDialogHeader>
-                        <AlertDialogFooter>
-                            <AlertDialogCancel>Cancel</AlertDialogCancel>
-                            <AlertDialogAction asChild>
-                                <Link href="/sign-in">Sign in</Link>
-                            </AlertDialogAction>
-                        </AlertDialogFooter>
-                    </>
-                </AlertDialogContent>
-            )}
-        </AlertDialog>
-    );
+        setIsBookmarked(result);
+        toast.success(
+          result
+            ? 'Companion saved successfully'
+            : 'Companion unsaved successfully',
+        );
+      } catch (error) {
+        console.error(error);
+      }
+    });
+  };
+  return (
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <Button
+          onClick={toggleBookmark}
+          variant="link"
+          size="icon"
+          className="companion-bookmark"
+        >
+          {pending ? (
+            <Spinner variant="ring" size="sm" />
+          ) : (
+            <Image
+              src={`${isBookmarked ? '/icons/bookmark-filled.svg' : '/icons/bookmark.svg'}`}
+              alt="bookmark"
+              width={12.5}
+              height={15}
+            />
+          )}
+        </Button>
+      </AlertDialogTrigger>
+      {!userId && (
+        <AlertDialogContent>
+          <>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Sign in required!</AlertDialogTitle>
+              <AlertDialogDescription>
+                You must sign in to perform this action.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction asChild>
+                <Link href="/sign-in">Sign in</Link>
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </>
+        </AlertDialogContent>
+      )}
+    </AlertDialog>
+  );
 };
 
 export default BookmarkButton;

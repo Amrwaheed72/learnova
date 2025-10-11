@@ -7,36 +7,36 @@ import Providers from './Providers';
 import { Toaster } from '@/components/ui/sonner';
 
 const bricolage = Bricolage_Grotesque({
-    variable: '--font-bricolage',
-    subsets: ['latin'],
+  variable: '--font-bricolage',
+  subsets: ['latin'],
 });
 
 export const metadata: Metadata = {
-    title: 'Learnova',
-    description: 'Real-time AI Teaching Platform',
+  title: 'Learnova',
+  description: 'Real-time AI Teaching Platform',
 };
 
 export default function RootLayout({
-    children,
+  children,
 }: Readonly<{
-    children: React.ReactNode;
+  children: React.ReactNode;
 }>) {
-    return (
-        <html lang="en" suppressHydrationWarning>
-            <body className={`${bricolage.variable} antialiased`}>
-                <ThemeProvider
-                    attribute="class"
-                    defaultTheme="system"
-                    enableSystem
-                    disableTransitionOnChange
-                >
-                    <Providers>
-                        <Toaster position='top-right' closeButton={true} />
-                        <Navbar />
-                        <main>{children}</main>
-                    </Providers>
-                </ThemeProvider>
-            </body>
-        </html>
-    );
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${bricolage.variable} antialiased`}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Providers>
+            <Toaster position="top-right" closeButton={true} />
+            <Navbar />
+            <main>{children}</main>
+          </Providers>
+        </ThemeProvider>
+      </body>
+    </html>
+  );
 }
