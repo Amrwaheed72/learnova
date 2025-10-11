@@ -1,6 +1,11 @@
 import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
 
-const ToolTipComponent = ({ children, toolTipContent }) => {
+interface Props {
+  children: React.ReactNode;
+  toolTipContent: string;
+}
+
+const ToolTipComponent = ({ children, toolTipContent }: Props) => {
   return (
     <Tooltip>
       <TooltipTrigger asChild>{children}</TooltipTrigger>

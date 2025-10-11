@@ -16,7 +16,7 @@ import { Eraser } from 'lucide-react';
 import { DeleteCompanion } from '@/lib/actions/companion.actions';
 import { toast } from 'sonner';
 interface Props {
-  userId: string;
+  userId: string | null;
   companionId: string;
 }
 const DeleteCompanionComponent = ({ userId, companionId }: Props) => {

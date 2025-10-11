@@ -157,7 +157,7 @@ export async function removeBookmark(companionId: string) {
     return false;
 }
 
-export const getUserBookmarks = async (userId: string) => {
+export const getUserBookmarks = async (userId: string | null) => {
     const { data, error } = await supabase
         .from('bookmarks')
         .select(`companion:companion_id (*)`)
@@ -172,7 +172,7 @@ export const DeleteCompanion = async ({
     userId,
     companionId,
 }: {
-    userId: string;
+    userId: string | null;
     companionId: string;
 }) => {
     const { error } = await supabase

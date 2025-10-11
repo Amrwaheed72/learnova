@@ -1,4 +1,4 @@
-import { UseFormReturn, FieldValues, Path } from 'react-hook-form';
+import { FieldValues, Path, Control } from 'react-hook-form';
 import {
   FormControl,
   FormField,
@@ -18,14 +18,12 @@ import { Textarea } from './ui/textarea';
 import { subjects } from '@/constants';
 
 interface Props<T extends FieldValues> {
-  form: UseFormReturn<T>;
+  control: Control<T>;
   label: string;
   placeholder: string;
   name: Path<T>;
   type: 'select' | 'input' | 'textarea';
 }
-
-// ✅ Define select options in one place (easier to maintain)
 const selectOptions: Record<string, string[]> = {
   voice: ['male', 'female'],
   style: ['formal', 'casual'],
@@ -33,7 +31,7 @@ const selectOptions: Record<string, string[]> = {
 };
 
 const FormFieldComponent = <T extends FieldValues>({
-  form,
+  control,
   label,
   placeholder,
   name,
@@ -43,7 +41,7 @@ const FormFieldComponent = <T extends FieldValues>({
 
   return (
     <FormField
-      control={form.control}
+      control={control}
       name={name}
       render={({ field }) => (
         <FormItem>
