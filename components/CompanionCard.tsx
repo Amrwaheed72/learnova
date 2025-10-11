@@ -27,7 +27,7 @@ const CompanionCard = async ({
 
     const isBookmarked = companions.some((c) => c.id === id);
     return (
-        <article
+        <div
             className="companion-card"
             style={{ backgroundColor: getSubjectColor(subject) }}
         >
@@ -56,7 +56,7 @@ const CompanionCard = async ({
                 userId={userId}
                 icon=""
             />
-        </article>
+        </div>
     );
 };
 

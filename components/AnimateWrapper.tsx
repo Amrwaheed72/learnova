@@ -11,7 +11,7 @@ export default function AnimatedWrapper({
 }) {
     return (
         <motion.div
-            className={`${type === 'session' ? '' : 'flex w-full items-center justify-center'}`}
+            className={type === 'session' ? '' : 'w-full'}
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}

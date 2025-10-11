@@ -26,7 +26,7 @@ const Page = async ({ params }: CompanionSessionPageProps) => {
     return (
         <div className="flex flex-col gap-8">
             <AnimatedWrapper type="session">
-                <article className="rounded-border relative flex justify-between border-black p-6 max-md:flex-col dark:border-white">
+                <article className="rounded-border relative mb-6 flex justify-between border-black p-6 max-md:flex-col dark:border-white">
                     <div className="flex items-center gap-2">
                         <div
                             className="flex size-[72px] items-center justify-center rounded-lg max-md:hidden"

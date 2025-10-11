@@ -29,7 +29,7 @@ const DeleteCompanionComponent = ({ userId, companionId }: Props) => {
     return (
         <div className="flex w-full justify-end">
             <AlertDialog>
-                <AlertDialogTrigger>
+                <AlertDialogTrigger asChild>
                     <ToolTipComponent toolTipContent="Delete this companion">
                         <Button className="cursor-pointer" variant={'outline'}>
                             <Eraser />

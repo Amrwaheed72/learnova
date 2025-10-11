@@ -51,9 +51,11 @@ const CompanionsList = async ({ title, companions, classNames }: Props) => {
                 <TableBody>
                     {recentCompanions.length === 0 ? (
                         <TableRow>
-                            <p className="mx-auto w-full text-2xl">
-                                No recent Companions
-                            </p>
+                            <TableCell>
+                                <p className="mx-auto w-full text-2xl">
+                                    No recent Companions
+                                </p>
+                            </TableCell>
                         </TableRow>
                     ) : (
                         recentCompanions?.map(
