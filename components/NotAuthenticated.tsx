@@ -1,17 +1,14 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import {
-  AlertDialog,
-  AlertDialogTrigger,
-  AlertDialogContent,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogCancel,
-  AlertDialogAction,
-} from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from './ui/dialog';
 
 interface Props {
   userId?: string | null;
@@ -21,46 +18,46 @@ interface Props {
 }
 function NotAuthenticated({ userId, href, label, icon }: Props) {
   return (
-    <AlertDialog>
+    <Dialog>
       {userId ? (
         <Link href={href}>
           <Button
             variant="default"
             className="w-full cursor-pointer gap-2 dark:bg-black dark:text-white"
           >
-            {icon && <Image src={icon} alt={label} width={12} height={12} />}
+            {icon && <Image  loading='lazy' src={icon} alt={label} width={12} height={12} />}
             <p>{label}</p>
           </Button>
         </Link>
       ) : (
         <>
-          <AlertDialogTrigger asChild>
+          <DialogTrigger asChild>
             <Button
               variant="default"
               className="cursor-pointer gap-2 dark:bg-black dark:text-white"
             >
-              {icon && <Image src={icon} alt={label} width={12} height={12} />}
+              {icon && <Image  loading='lazy' src={icon} alt={label} width={12} height={12} />}
               <p>{label}</p>
             </Button>
-          </AlertDialogTrigger>
-
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Sign in required!</AlertDialogTitle>
-              <AlertDialogDescription>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Sign in is required!</DialogTitle>
+              <DialogDescription>
                 You must sign in to perform this action.
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction asChild>
-                <Link href="/sign-in">Sign in</Link>
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
+              </DialogDescription>
+            </DialogHeader>
+            <div className="flex justify-end gap-2">
+              <Button variant={'outline'}>Cancel</Button>
+              <Link href={'/sign-in'}>
+                <Button>Signin</Button>
+              </Link>
+            </div>
+          </DialogContent>
         </>
       )}
-    </AlertDialog>
+    </Dialog>
+   
   );
 }
 

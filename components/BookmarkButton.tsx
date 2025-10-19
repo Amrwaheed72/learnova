@@ -8,37 +8,15 @@ import { useState, useTransition } from 'react';
 
 import Link from 'next/link';
 import { Spinner } from './ui/spinner';
-import dynamic from 'next/dynamic';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from './ui/dialog';
 
-const AlertDialog = dynamic(() =>
-  import('@/components/ui/alert-dialog').then((mod) => mod.AlertDialog),
-);
-const AlertDialogContent = dynamic(() =>
-  import('@/components/ui/alert-dialog').then((mod) => mod.AlertDialogContent),
-);
-const AlertDialogHeader = dynamic(() =>
-  import('@/components/ui/alert-dialog').then((mod) => mod.AlertDialogHeader),
-);
-const AlertDialogTitle = dynamic(() =>
-  import('@/components/ui/alert-dialog').then((mod) => mod.AlertDialogTitle),
-);
-const AlertDialogDescription = dynamic(() =>
-  import('@/components/ui/alert-dialog').then(
-    (mod) => mod.AlertDialogDescription,
-  ),
-);
-const AlertDialogFooter = dynamic(() =>
-  import('@/components/ui/alert-dialog').then((mod) => mod.AlertDialogFooter),
-);
-const AlertDialogCancel = dynamic(() =>
-  import('@/components/ui/alert-dialog').then((mod) => mod.AlertDialogCancel),
-);
-const AlertDialogAction = dynamic(() =>
-  import('@/components/ui/alert-dialog').then((mod) => mod.AlertDialogAction),
-);
-const AlertDialogTrigger = dynamic(() =>
-  import('@/components/ui/alert-dialog').then((mod) => mod.AlertDialogTrigger),
-);
 const BookmarkButton = ({
   companionId,
   userId,
@@ -69,8 +47,8 @@ const BookmarkButton = ({
     });
   };
   return (
-    <AlertDialog>
-      <AlertDialogTrigger asChild>
+    <Dialog>
+      <DialogTrigger asChild>
         <Button
           onClick={toggleBookmark}
           variant="link"
@@ -85,29 +63,28 @@ const BookmarkButton = ({
               alt="bookmark"
               width={12.5}
               height={15}
+              loading='lazy'
             />
           )}
         </Button>
-      </AlertDialogTrigger>
+      </DialogTrigger>
       {!userId && (
-        <AlertDialogContent>
-          <>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Sign in required!</AlertDialogTitle>
-              <AlertDialogDescription>
-                You must sign in to perform this action.
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction asChild>
-                <Link href="/sign-in">Sign in</Link>
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </>
-        </AlertDialogContent>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Sign in is required!</DialogTitle>
+            <DialogDescription>
+              You must sign in to perform this action.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex justify-end gap-2">
+            <Button variant={'outline'}>Cancel</Button>
+            <Link href={'/sign-in'}>
+              <Button>Signin</Button>
+            </Link>
+          </div>
+        </DialogContent>
       )}
-    </AlertDialog>
+    </Dialog>
   );
 };
 

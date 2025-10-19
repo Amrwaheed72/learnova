@@ -1,83 +1,52 @@
+'use client';
 import { Button } from './ui/button';
-import ToolTipComponent from './ToolTipComponent';
-import { Eraser } from 'lucide-react';
+
 import { DeleteCompanion } from '@/lib/actions/companion.actions';
 import { toast } from 'sonner';
-import dynamic from 'next/dynamic';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from './ui/dialog';
+import { useTransition } from 'react';
+import { Spinner } from './ui/spinner';
 
-const AlertDialog = dynamic(() =>
-  import('@/components/ui/alert-dialog').then((mod) => mod.AlertDialog),
-);
-const AlertDialogContent = dynamic(() =>
-  import('@/components/ui/alert-dialog').then((mod) => mod.AlertDialogContent),
-);
-const AlertDialogHeader = dynamic(() =>
-  import('@/components/ui/alert-dialog').then((mod) => mod.AlertDialogHeader),
-);
-const AlertDialogTitle = dynamic(() =>
-  import('@/components/ui/alert-dialog').then((mod) => mod.AlertDialogTitle),
-);
-const AlertDialogDescription = dynamic(() =>
-  import('@/components/ui/alert-dialog').then(
-    (mod) => mod.AlertDialogDescription,
-  ),
-);
-const AlertDialogFooter = dynamic(() =>
-  import('@/components/ui/alert-dialog').then((mod) => mod.AlertDialogFooter),
-);
-const AlertDialogCancel = dynamic(() =>
-  import('@/components/ui/alert-dialog').then((mod) => mod.AlertDialogCancel),
-);
-const AlertDialogAction = dynamic(() =>
-  import('@/components/ui/alert-dialog').then((mod) => mod.AlertDialogAction),
-);
-const AlertDialogTrigger = dynamic(() =>
-  import('@/components/ui/alert-dialog').then((mod) => mod.AlertDialogTrigger),
-);
 interface Props {
   userId: string | null;
   companionId: string;
+  children: React.ReactNode;
 }
-const DeleteCompanionComponent = ({ userId, companionId }: Props) => {
-  const handleDelete = async () => {
-    await DeleteCompanion({ userId, companionId });
-
-    toast('Companion Deleted Successfully');
+const DeleteCompanionComponent = ({ userId, companionId, children }: Props) => {
+  const [isPending, startTransition] = useTransition();
+  const handleDelete = () => {
+    startTransition(async () => {
+      try {
+        await DeleteCompanion({ userId, companionId });
+        toast.success('Companion deleted successfully');
+      } catch (error) {
+        toast.error('Could not delete companion, try again later');
+      }
+    });
   };
   return (
-    <div className="flex w-full justify-end">
-      <AlertDialog>
-        <AlertDialogTrigger asChild>
-          <ToolTipComponent toolTipContent="Delete this companion">
-            <Button className="cursor-pointer" variant={'outline'}>
-              <Eraser />
-            </Button>
-          </ToolTipComponent>
-        </AlertDialogTrigger>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>
-              Are you sure You want to delete it?
-            </AlertDialogTitle>
-            <AlertDialogDescription>
-              this action can not be undone!
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction asChild>
-              <Button
-                onClick={handleDelete}
-                variant={'destructive'}
-                className="cursor-pointer"
-              >
-                Delete
-              </Button>
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-    </div>
+    <Dialog>
+      <DialogTrigger asChild>{children}</DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Are you sure You want to delete it?</DialogTitle>
+          <DialogDescription>this action can not be undone!</DialogDescription>
+        </DialogHeader>
+        <div className="flex justify-end gap-2">
+          <Button variant={'outline'}>Cancel</Button>
+          <Button variant={'destructive'} onClick={handleDelete}>
+            {isPending ? <Spinner size="sm" variant="ring" /> : 'Delete'}
+          </Button>
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 };
 

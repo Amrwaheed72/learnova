@@ -1,4 +1,3 @@
-// CompanionsList.tsx
 import CompanionCard from '@/components/CompanionCard';
 import Empty from '@/components/Empty';
 import { getAllCompanions } from '@/lib/actions/companion.actions';

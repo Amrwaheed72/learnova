@@ -130,7 +130,7 @@ export const newCompanionPermissions = async () => {
 export async function addBookmark(companionId: string) {
   const { userId } = await auth();
   if (!userId) throw new Error('Not authenticated');
-  const { data, error } = await supabase
+  const { error } = await supabase
     .from('bookmarks')
     .insert({ user_id: userId, companion_id: companionId })
     .select();
@@ -138,7 +138,7 @@ export async function addBookmark(companionId: string) {
   revalidatePath(`/companions/${companionId}`);
   revalidatePath(`/`);
   revalidatePath(`/my-journey`);
-  return true; // ✅ Return "isBookmarked" = true
+  return true; 
 }
 
 export async function removeBookmark(companionId: string) {

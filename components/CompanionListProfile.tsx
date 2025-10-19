@@ -1,3 +1,11 @@
+'use client';
+
+import { cn, getSubjectColor } from '@/lib/utils';
+import Image from 'next/image';
+import Link from 'next/link';
+import { Button } from './ui/button';
+import { Eraser } from 'lucide-react';
+import { useUser } from '@clerk/nextjs';
 import {
   Table,
   TableBody,
@@ -5,14 +13,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import { cn, getSubjectColor } from '@/lib/utils';
-import Image from 'next/image';
-import Link from 'next/link';
-import { auth } from '@clerk/nextjs/server';
-import dynamic from 'next/dynamic';
+} from './ui/table';
+import DeleteCompanionComponent from './DeleteCompanionComponent';
 
-const DeleteCompanionComponent=dynamic(()=>import('./DeleteCompanionComponent'))
 interface Props {
   title: string;
   companions?: Companion[];
@@ -20,13 +23,13 @@ interface Props {
   type: string;
 }
 
-const CompanionListProfile = async ({
+const CompanionListProfile = ({
   title,
   companions,
   classNames,
   type,
 }: Props) => {
-  const { userId } = await auth();
+  const { user } = useUser();
   return (
     <article className={cn('companion-list', classNames)}>
       <h2 className="text-xl font-bold sm:text-3xl">{title}</h2>
@@ -44,7 +47,9 @@ const CompanionListProfile = async ({
         <TableBody>
           {companions?.length === 0 ? (
             <TableRow>
-              <p className="mx-auto w-full text-2xl">No recent Companions</p>
+              <TableCell className="mx-auto w-full text-2xl">
+                No recent Companions
+              </TableCell>
             </TableRow>
           ) : (
             companions?.map(({ id, subject, topic, duration, name }) => (
@@ -63,6 +68,7 @@ const CompanionListProfile = async ({
                           alt={subject}
                           width={35}
                           height={35}
+                          loading="lazy"
                         />
                       </div>
                       <div className="flex flex-col gap-2">
@@ -108,14 +114,20 @@ const CompanionListProfile = async ({
                     />
                   </div>
                 </TableCell>
-                <TableCell>
-                  {type === 'mine' && (
-                    <DeleteCompanionComponent
-                      companionId={id}
-                      userId={userId}
-                    />
-                  )}
-                </TableCell>
+                {type === 'mine' && (
+                  <TableCell>
+                    <div>
+                      <DeleteCompanionComponent
+                        companionId={id}
+                        userId={user.id}
+                      >
+                        <Button className="cursor-pointer" variant={'outline'}>
+                          <Eraser />
+                        </Button>
+                      </DeleteCompanionComponent>
+                    </div>
+                  </TableCell>
+                )}
               </TableRow>
             ))
           )}

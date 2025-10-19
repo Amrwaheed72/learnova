@@ -72,7 +72,7 @@ const CompanionComponent = ({
       vapi.off('speech-start', onSpeechStart);
       vapi.off('speech-end', onSpeechEnd);
     };
-  }, []);
+  }, [companionId]);
   const toggleMicrophone = () => {
     const isMuted = vapi.isMuted();
     vapi.setMuted(!isMuted);
@@ -148,6 +148,7 @@ const CompanionComponent = ({
               alt={userName}
               width={130}
               height={130}
+              loading='lazy'
               className="rounded-lg"
             />
             <p className="text-2xl font-bold">{userName}</p>
@@ -162,6 +163,7 @@ const CompanionComponent = ({
               className="dark:invert"
               alt="mic"
               width={36}
+              loading='lazy'
               height={36}
             />
             <p className="max-sm:hidden">

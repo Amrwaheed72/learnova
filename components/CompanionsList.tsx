@@ -11,17 +11,16 @@ import { cn, getSubjectColor } from '@/lib/utils';
 import { auth } from '@clerk/nextjs/server';
 import Image from 'next/image';
 import Link from 'next/link';
+
 import {
-  AlertDialog,
-  AlertDialogTrigger,
-  AlertDialogContent,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogCancel,
-  AlertDialogAction,
-} from '@/components/ui/alert-dialog';
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from './ui/dialog';
+import { Button } from './ui/button';
 
 interface Props {
   title: string;
@@ -90,9 +89,8 @@ const CompanionsList = async ({ title, companions, classNames }: Props) => {
                       </div>
                     </Link>
                   ) : (
-                    // ❌ User NOT logged in → show alert dialog
-                    <AlertDialog>
-                      <AlertDialogTrigger asChild>
+                    <Dialog>
+                      <DialogTrigger asChild>
                         <div className="flex cursor-pointer items-center gap-2">
                           <div
                             className="flex size-[72px] items-center justify-center rounded-lg max-md:hidden"
@@ -105,6 +103,7 @@ const CompanionsList = async ({ title, companions, classNames }: Props) => {
                               alt={subject}
                               width={35}
                               height={35}
+                              loading="lazy"
                             />
                           </div>
                           <div className="flex flex-col gap-2">
@@ -112,23 +111,22 @@ const CompanionsList = async ({ title, companions, classNames }: Props) => {
                             <p className="text-lg">{topic}</p>
                           </div>
                         </div>
-                      </AlertDialogTrigger>
-
-                      <AlertDialogContent>
-                        <AlertDialogHeader>
-                          <AlertDialogTitle>Sign in required!</AlertDialogTitle>
-                          <AlertDialogDescription>
+                      </DialogTrigger>
+                      <DialogContent>
+                        <DialogHeader>
+                          <DialogTitle> Sign in is required!</DialogTitle>
+                          <DialogDescription>
                             You must sign in to view this session.
-                          </AlertDialogDescription>
-                        </AlertDialogHeader>
-                        <AlertDialogFooter>
-                          <AlertDialogCancel>Cancel</AlertDialogCancel>
-                          <AlertDialogAction asChild>
-                            <Link href="/sign-in">Sign in</Link>
-                          </AlertDialogAction>
-                        </AlertDialogFooter>
-                      </AlertDialogContent>
-                    </AlertDialog>
+                          </DialogDescription>
+                        </DialogHeader>
+                        <div className="flex justify-end gap-2">
+                          <Button variant={'outline'}>Cancel</Button>
+                          <Link href={'/sign-in'}>
+                            <Button>Signin</Button>
+                          </Link>
+                        </div>
+                      </DialogContent>
+                    </Dialog>
                   )}
                 </TableCell>
 
@@ -146,6 +144,7 @@ const CompanionsList = async ({ title, companions, classNames }: Props) => {
                       src={`/icons/${subject}.svg`}
                       alt={subject}
                       width={18}
+                      loading="lazy"
                       height={18}
                     />
                   </div>
@@ -161,6 +160,7 @@ const CompanionsList = async ({ title, companions, classNames }: Props) => {
                       alt="minutes"
                       width={14}
                       height={14}
+                      loading="lazy"
                       className="md:hidden"
                     />
                   </div>

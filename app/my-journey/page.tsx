@@ -9,18 +9,13 @@ import { redirect } from 'next/navigation';
 import AnimatedWrapper from '@/components/AnimateWrapper';
 import dynamic from 'next/dynamic';
 
-const Accordion = dynamic(() =>
-  import('@/components/ui/accordion').then((mod) => mod.Accordion),
-);
-const AccordionContent = dynamic(() =>
-  import('@/components/ui/accordion').then((mod) => mod.AccordionContent),
-);
-const AccordionItem = dynamic(() =>
-  import('@/components/ui/accordion').then((mod) => mod.AccordionItem),
-);
-const AccordionTrigger = dynamic(() =>
-  import('@/components/ui/accordion').then((mod) => mod.AccordionTrigger),
-);
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
+
 const CompanionListProfile = dynamic(
   () => import('@/components/CompanionListProfile'),
 );
@@ -44,6 +39,7 @@ const Page = async () => {
               width={110}
               height={110}
               className="rounded-full"
+              loading="lazy"
             />
             <div className="flex flex-col gap-2">
               <h1 className="text-2xl font-bold">
@@ -62,6 +58,7 @@ const Page = async () => {
                   alt="checkmark"
                   width={22}
                   height={22}
+                  loading="lazy"
                 />
                 <p className="text-2xl font-bold">{sessionHistory.length}</p>
               </div>
@@ -74,6 +71,7 @@ const Page = async () => {
                   alt="cap"
                   width={22}
                   height={22}
+                  loading="lazy"
                 />
                 <p className="text-2xl font-bold">{UserCompanions.length}</p>
               </div>
