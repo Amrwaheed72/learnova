@@ -5,20 +5,40 @@ import { Button } from './ui/button';
 import { toast } from 'sonner';
 import { addBookmark, removeBookmark } from '@/lib/actions/companion.actions';
 import { useState, useTransition } from 'react';
-import { AlertDialog } from '@radix-ui/react-alert-dialog';
-import {
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from './ui/alert-dialog';
+
 import Link from 'next/link';
 import { Spinner } from './ui/spinner';
+import dynamic from 'next/dynamic';
 
+const AlertDialog = dynamic(() =>
+  import('@/components/ui/alert-dialog').then((mod) => mod.AlertDialog),
+);
+const AlertDialogContent = dynamic(() =>
+  import('@/components/ui/alert-dialog').then((mod) => mod.AlertDialogContent),
+);
+const AlertDialogHeader = dynamic(() =>
+  import('@/components/ui/alert-dialog').then((mod) => mod.AlertDialogHeader),
+);
+const AlertDialogTitle = dynamic(() =>
+  import('@/components/ui/alert-dialog').then((mod) => mod.AlertDialogTitle),
+);
+const AlertDialogDescription = dynamic(() =>
+  import('@/components/ui/alert-dialog').then(
+    (mod) => mod.AlertDialogDescription,
+  ),
+);
+const AlertDialogFooter = dynamic(() =>
+  import('@/components/ui/alert-dialog').then((mod) => mod.AlertDialogFooter),
+);
+const AlertDialogCancel = dynamic(() =>
+  import('@/components/ui/alert-dialog').then((mod) => mod.AlertDialogCancel),
+);
+const AlertDialogAction = dynamic(() =>
+  import('@/components/ui/alert-dialog').then((mod) => mod.AlertDialogAction),
+);
+const AlertDialogTrigger = dynamic(() =>
+  import('@/components/ui/alert-dialog').then((mod) => mod.AlertDialogTrigger),
+);
 const BookmarkButton = ({
   companionId,
   userId,

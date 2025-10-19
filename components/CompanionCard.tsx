@@ -54,7 +54,6 @@ const CompanionCard = async ({
         href={`/companions/${id}`}
         label="Launch Lesson"
         userId={userId}
-        icon=""
       />
     </div>
   );

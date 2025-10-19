@@ -1,9 +1,11 @@
-import CompanionForm from '@/components/CompanionForm';
 import { Button } from '@/components/ui/button';
+import { Spinner } from '@/components/ui/spinner';
 import { newCompanionPermissions } from '@/lib/actions/companion.actions';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
-
+import { Suspense } from 'react';
+const CompanionForm = dynamic(() => import('@/components/CompanionForm'));
 const Page = async () => {
   const canCreateCompanion = await newCompanionPermissions();
 
@@ -12,7 +14,15 @@ const Page = async () => {
       {canCreateCompanion ? (
         <article className="flex w-full flex-col gap-4">
           <h1>Companion Builder</h1>
-          <CompanionForm />
+          <Suspense
+            fallback={
+              <div>
+                <Spinner variant='ring' size='lg' />
+              </div>
+            }
+          >
+            <CompanionForm />
+          </Suspense>
         </article>
       ) : (
         <article className="companion-limit w-full">

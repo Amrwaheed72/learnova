@@ -1,11 +1,4 @@
 import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion';
-import CompanionListProfile from '@/components/CompanionListProfile';
-import {
   getUserBookmarks,
   getUserCompanions,
   getUserSessions,
@@ -14,7 +7,23 @@ import { currentUser } from '@clerk/nextjs/server';
 import Image from 'next/image';
 import { redirect } from 'next/navigation';
 import AnimatedWrapper from '@/components/AnimateWrapper';
+import dynamic from 'next/dynamic';
 
+const Accordion = dynamic(() =>
+  import('@/components/ui/accordion').then((mod) => mod.Accordion),
+);
+const AccordionContent = dynamic(() =>
+  import('@/components/ui/accordion').then((mod) => mod.AccordionContent),
+);
+const AccordionItem = dynamic(() =>
+  import('@/components/ui/accordion').then((mod) => mod.AccordionItem),
+);
+const AccordionTrigger = dynamic(() =>
+  import('@/components/ui/accordion').then((mod) => mod.AccordionTrigger),
+);
+const CompanionListProfile = dynamic(
+  () => import('@/components/CompanionListProfile'),
+);
 const Page = async () => {
   const user = await currentUser();
   if (!user) {

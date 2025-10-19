@@ -1,9 +1,12 @@
 import Image from 'next/image';
 import { auth } from '@clerk/nextjs/server';
 import NotAuthenticated from './NotAuthenticated';
-
+import { Button } from './ui/button';
+import Link from 'next/link';
 const CallToAction = async () => {
   const { userId } = await auth();
+  console.log(userId);
+
   return (
     <section className="cta-section max-lg:order-4">
       <div className="cta-badge">Start Learning Your Way</div>

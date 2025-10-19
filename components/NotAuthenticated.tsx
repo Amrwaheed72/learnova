@@ -17,13 +17,12 @@ interface Props {
   userId?: string | null;
   href: string;
   label: string;
-  icon: string;
+  icon?: string;
 }
 function NotAuthenticated({ userId, href, label, icon }: Props) {
   return (
     <AlertDialog>
       {userId ? (
-        // ✅ If logged in, just navigate
         <Link href={href}>
           <Button
             variant="default"
@@ -34,7 +33,6 @@ function NotAuthenticated({ userId, href, label, icon }: Props) {
           </Button>
         </Link>
       ) : (
-        // ❌ If not logged in, open alert dialog
         <>
           <AlertDialogTrigger asChild>
             <Button

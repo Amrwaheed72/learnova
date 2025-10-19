@@ -1,13 +1,17 @@
 import AnimatedWrapper from '@/components/AnimateWrapper';
 import BookmarkButton from '@/components/BookmarkButton';
-import CompanionComponent from '@/components/CompanionComponent';
 import {
   getOneCompanion,
   getUserBookmarks,
 } from '@/lib/actions/companion.actions';
 import { getSubjectColor } from '@/lib/utils';
 import { currentUser } from '@clerk/nextjs/server';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
+
+const CompanionComponent = dynamic(
+  () => import('@/components/CompanionComponent'),
+);
 interface CompanionSessionPageProps {
   params: Promise<{ sessionId: string }>;
 }
