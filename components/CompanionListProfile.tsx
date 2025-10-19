@@ -10,8 +10,9 @@ import { cn, getSubjectColor } from '@/lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
 import { auth } from '@clerk/nextjs/server';
-import DeleteCompanionComponent from './DeleteCompanionComponent';
+import dynamic from 'next/dynamic';
 
+const DeleteCompanionComponent=dynamic(()=>import('./DeleteCompanionComponent'))
 interface Props {
   title: string;
   companions?: Companion[];

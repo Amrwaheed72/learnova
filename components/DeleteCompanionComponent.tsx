@@ -1,5 +1,3 @@
-'use client';
-
 import { Button } from './ui/button';
 import ToolTipComponent from './ToolTipComponent';
 import { Eraser } from 'lucide-react';
