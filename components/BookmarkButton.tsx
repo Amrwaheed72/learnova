@@ -5,28 +5,18 @@ import { Button } from './ui/button';
 import { toast } from 'sonner';
 import { addBookmark, removeBookmark } from '@/lib/actions/companion.actions';
 import { useState, useTransition } from 'react';
-
-import Link from 'next/link';
 import { Spinner } from './ui/spinner';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from './ui/dialog';
-
+import dynamic from 'next/dynamic';
+const LoginAlert = dynamic(() => import('./LoginAlert'));
 const BookmarkButton = ({
   companionId,
-  userId,
   isBookmarked: initialIsBookmarked,
 }: {
   companionId: string;
   isBookmarked: boolean;
   userId: string | null;
 }) => {
-  const [pending, startTransition] = useTransition();
+  const [isPending, startTransition] = useTransition();
   const [isBookmarked, setIsBookmarked] = useState(initialIsBookmarked);
   const toggleBookmark = () => {
     startTransition(async () => {
@@ -47,44 +37,26 @@ const BookmarkButton = ({
     });
   };
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button
-          onClick={toggleBookmark}
-          variant="link"
-          size="icon"
-          className="companion-bookmark"
-        >
-          {pending ? (
-            <Spinner variant="ring" size="sm" />
-          ) : (
-            <Image
-              src={`${isBookmarked ? '/icons/bookmark-filled.svg' : '/icons/bookmark.svg'}`}
-              alt="bookmark"
-              width={12.5}
-              height={15}
-              loading='lazy'
-            />
-          )}
-        </Button>
-      </DialogTrigger>
-      {!userId && (
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Sign in is required!</DialogTitle>
-            <DialogDescription>
-              You must sign in to perform this action.
-            </DialogDescription>
-          </DialogHeader>
-          <div className="flex justify-end gap-2">
-            <Button variant={'outline'}>Cancel</Button>
-            <Link href={'/sign-in'}>
-              <Button>Signin</Button>
-            </Link>
-          </div>
-        </DialogContent>
-      )}
-    </Dialog>
+    <LoginAlert message="save this session">
+      <Button
+        onClick={toggleBookmark}
+        variant="link"
+        size="icon"
+        className="companion-bookmark"
+      >
+        {isPending ? (
+          <Spinner variant="ring" size="sm" />
+        ) : (
+          <Image
+            src={`${isBookmarked ? '/icons/bookmark-filled.svg' : '/icons/bookmark.svg'}`}
+            alt="bookmark"
+            width={12.5}
+            height={15}
+            loading="lazy"
+          />
+        )}
+      </Button>
+    </LoginAlert>
   );
 };
 

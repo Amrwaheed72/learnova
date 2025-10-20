@@ -39,7 +39,7 @@ const Page = async () => {
               width={110}
               height={110}
               className="rounded-full"
-              loading="lazy"
+              priority
             />
             <div className="flex flex-col gap-2">
               <h1 className="text-2xl font-bold">
@@ -58,7 +58,6 @@ const Page = async () => {
                   alt="checkmark"
                   width={22}
                   height={22}
-                  loading="lazy"
                 />
                 <p className="text-2xl font-bold">{sessionHistory.length}</p>
               </div>
@@ -71,7 +70,6 @@ const Page = async () => {
                   alt="cap"
                   width={22}
                   height={22}
-                  loading="lazy"
                 />
                 <p className="text-2xl font-bold">{UserCompanions.length}</p>
               </div>

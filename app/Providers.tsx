@@ -3,6 +3,7 @@
 import { useTheme } from 'next-themes';
 import { ClerkProvider } from '@clerk/nextjs';
 import { dark } from '@clerk/themes';
+import { ThemeProvider } from '@/components/theme-provider';
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   const { theme } = useTheme();
@@ -16,7 +17,14 @@ export default function Providers({ children }: { children: React.ReactNode }) {
         },
       }}
     >
-      {children}
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="system"
+        enableSystem
+        disableTransitionOnChange
+      >
+        {children}
+      </ThemeProvider>
     </ClerkProvider>
   );
 }

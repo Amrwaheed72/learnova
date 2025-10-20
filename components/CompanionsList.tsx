@@ -8,19 +8,10 @@ import {
 } from '@/components/ui/table';
 import { getRecentSession } from '@/lib/actions/companion.actions';
 import { cn, getSubjectColor } from '@/lib/utils';
-import { auth } from '@clerk/nextjs/server';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import Link from 'next/link';
+import LoginAlert from './LoginAlert';
 
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from './ui/dialog';
-import { Button } from './ui/button';
 
 interface Props {
   title: string;
@@ -28,10 +19,8 @@ interface Props {
   classNames?: string;
 }
 
-const CompanionsList = async ({ title, companions, classNames }: Props) => {
+const CompanionsList = async ({ title, classNames }: Props) => {
   const { companions: recentCompanions } = await getRecentSession();
-
-  const { userId } = await auth();
 
   return (
     <article className={cn('companion-list', classNames)}>
@@ -62,72 +51,32 @@ const CompanionsList = async ({ title, companions, classNames }: Props) => {
             recentCompanions?.map(({ id, subject, topic, duration, name }) => (
               <TableRow key={id}>
                 <TableCell className="font-medium">
-                  {userId ? (
-                    <Link href={`/companions/${id}`}>
-                      <div className="flex cursor-pointer items-center gap-2">
-                        <div
-                          className="flex size-[72px] items-center justify-center rounded-lg max-md:hidden"
-                          style={{
-                            backgroundColor: getSubjectColor(subject),
-                          }}
-                        >
-                          <Image
-                            src={`/icons/${subject}.svg`}
-                            alt={subject}
-                            width={35}
-                            height={35}
-                          />
-                        </div>
-                        <div className="flex flex-col gap-2">
-                          <p className="text-lg font-bold sm:text-2xl">
-                            {name}
-                          </p>
-                          <p className="text-sm text-gray-400 sm:text-lg">
-                            {topic}
-                          </p>
-                        </div>
+                  <LoginAlert
+                    href={`/companions/${id}`}
+                    message="view this session"
+                  >
+                    <div className="flex cursor-pointer items-center gap-2">
+                      <div
+                        className="flex size-[72px] items-center justify-center rounded-lg max-md:hidden"
+                        style={{
+                          backgroundColor: getSubjectColor(subject),
+                        }}
+                      >
+                        <Image
+                          src={`/icons/${subject}.svg`}
+                          alt={subject}
+                          width={35}
+                          height={35}
+                        />
                       </div>
-                    </Link>
-                  ) : (
-                    <Dialog>
-                      <DialogTrigger asChild>
-                        <div className="flex cursor-pointer items-center gap-2">
-                          <div
-                            className="flex size-[72px] items-center justify-center rounded-lg max-md:hidden"
-                            style={{
-                              backgroundColor: getSubjectColor(subject),
-                            }}
-                          >
-                            <Image
-                              src={`/icons/${subject}.svg`}
-                              alt={subject}
-                              width={35}
-                              height={35}
-                              loading="lazy"
-                            />
-                          </div>
-                          <div className="flex flex-col gap-2">
-                            <p className="text-2xl font-bold">{name}</p>
-                            <p className="text-lg">{topic}</p>
-                          </div>
-                        </div>
-                      </DialogTrigger>
-                      <DialogContent>
-                        <DialogHeader>
-                          <DialogTitle> Sign in is required!</DialogTitle>
-                          <DialogDescription>
-                            You must sign in to view this session.
-                          </DialogDescription>
-                        </DialogHeader>
-                        <div className="flex justify-end gap-2">
-                          <Button variant={'outline'}>Cancel</Button>
-                          <Link href={'/sign-in'}>
-                            <Button>Signin</Button>
-                          </Link>
-                        </div>
-                      </DialogContent>
-                    </Dialog>
-                  )}
+                      <div className="flex flex-col gap-2">
+                        <p className="text-lg font-bold sm:text-2xl">{name}</p>
+                        <p className="text-sm text-gray-400 sm:text-lg">
+                          {topic}
+                        </p>
+                      </div>
+                    </div>
+                  </LoginAlert>
                 </TableCell>
 
                 <TableCell>

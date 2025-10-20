@@ -1,9 +1,11 @@
 import Image from 'next/image';
-import NotAuthenticated from './NotAuthenticated';
 import { auth } from '@clerk/nextjs/server';
 import { getSubjectColor } from '@/lib/utils';
 import BookmarkButton from './BookmarkButton';
 import { getUserBookmarks } from '@/lib/actions/companion.actions';
+import { Button } from './ui/button';
+import LoginAlert from './LoginAlert';
+
 interface Props {
   id: string;
   subject: string;
@@ -50,11 +52,11 @@ const CompanionCard = async ({
         />
         <p className="text-sm text-black">{duration} minutes</p>
       </div>
-      <NotAuthenticated
-        href={`/companions/${id}`}
-        label="Launch Lesson"
-        userId={userId}
-      />
+      <div className="w-full">
+        <LoginAlert message="view this session" href={`/companions/${id}`}>
+          <Button className="w-full">Launch Lesson</Button>
+        </LoginAlert>
+      </div>
     </div>
   );
 };

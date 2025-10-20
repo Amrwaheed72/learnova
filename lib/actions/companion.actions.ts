@@ -56,7 +56,10 @@ export const addToSessionHistory = async (companionId: string) => {
   const { userId } = await auth();
   const { data, error } = await supabase
     .from('session_history')
-    .insert({ companion_id: companionId, user_id: userId });
+    .upsert(
+      { companion_id: companionId, user_id: userId },
+      { onConflict: 'user_id, companion_id' },
+    );
   if (error) throw new Error(error.message);
   revalidatePath('/');
   return { data, error };
@@ -138,7 +141,7 @@ export async function addBookmark(companionId: string) {
   revalidatePath(`/companions/${companionId}`);
   revalidatePath(`/`);
   revalidatePath(`/my-journey`);
-  return true; 
+  return true;
 }
 
 export async function removeBookmark(companionId: string) {

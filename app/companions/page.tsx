@@ -3,11 +3,12 @@ import { Spinner } from '@/components/ui/spinner';
 import SearchInput from '@/components/SearchInput';
 import SubjectFilter from '@/components/SubjectFilter';
 import CompanionsList from './CompanionsList';
-import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
 import ToolTipComponent from '@/components/ToolTipComponent';
 import AnimatedWrapper from '@/components/AnimateWrapper';
+import dynamic from 'next/dynamic';
+import LoginAlert from '@/components/LoginAlert';
 
 const Page = async ({ searchParams }: SearchParams) => {
   const filter = await searchParams;
@@ -19,13 +20,13 @@ const Page = async ({ searchParams }: SearchParams) => {
       <section className="flex w-full flex-col justify-start gap-8 sm:flex-row sm:justify-between">
         <h1>Companion Library</h1>
         <div className="flex gap-4">
-          <ToolTipComponent toolTipContent={'Add new Companion'}>
-            <Link href={'/companions/new'}>
+          <LoginAlert message="Build new companion" href="/companions/new">
+            <ToolTipComponent toolTipContent={'Build new Companion'}>
               <Button className="cursor-pointer" variant={'outline'}>
                 <Plus />
               </Button>
-            </Link>
-          </ToolTipComponent>
+            </ToolTipComponent>
+          </LoginAlert>
           <SearchInput />
           <SubjectFilter />
         </div>

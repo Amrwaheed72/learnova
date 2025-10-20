@@ -1,11 +1,10 @@
+import CompanionForm from '@/components/CompanionForm';
 import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
 import { newCompanionPermissions } from '@/lib/actions/companion.actions';
-import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Suspense } from 'react';
-const CompanionForm = dynamic(() => import('@/components/CompanionForm'));
 const Page = async () => {
   const canCreateCompanion = await newCompanionPermissions();
 
