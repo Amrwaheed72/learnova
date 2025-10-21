@@ -52,7 +52,7 @@ const BookmarkButton = ({
             alt="bookmark"
             width={12.5}
             height={15}
-            loading="lazy"
+            priority
           />
         )}
       </Button>

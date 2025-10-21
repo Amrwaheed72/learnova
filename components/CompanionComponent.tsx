@@ -148,7 +148,7 @@ const CompanionComponent = ({
               alt={userName}
               width={130}
               height={130}
-              loading="lazy"
+              priority
               className="rounded-lg"
             />
             <p className="text-2xl font-bold">{userName}</p>
@@ -163,7 +163,7 @@ const CompanionComponent = ({
               className="dark:invert"
               alt="mic"
               width={36}
-              loading="lazy"
+              priority
               height={36}
             />
             <p className="max-sm:hidden">

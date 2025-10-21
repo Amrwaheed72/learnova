@@ -4,7 +4,6 @@ import './globals.css';
 import Navbar from '@/components/Navbar';
 import Providers from './Providers';
 import { Toaster } from '@/components/ui/sonner';
-import { ClerkProvider } from '@clerk/nextjs';
 
 const bricolage = Bricolage_Grotesque({
   variable: '--font-bricolage',

@@ -9,22 +9,22 @@ export default function Providers({ children }: { children: React.ReactNode }) {
   const { theme } = useTheme();
 
   return (
-    <ClerkProvider
-      appearance={{
-        baseTheme: theme === 'dark' ? dark : undefined,
-        variables: {
-          colorPrimary: '#fe5933',
-        },
-      }}
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="system"
+      enableSystem
+      disableTransitionOnChange
     >
-      <ThemeProvider
-        attribute="class"
-        defaultTheme="system"
-        enableSystem
-        disableTransitionOnChange
+      <ClerkProvider
+        appearance={{
+          baseTheme: theme === 'dark' ? dark : undefined,
+          variables: {
+            colorPrimary: '#fe5933',
+          },
+        }}
       >
         {children}
-      </ThemeProvider>
-    </ClerkProvider>
+      </ClerkProvider>
+    </ThemeProvider>
   );
 }

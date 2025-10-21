@@ -68,7 +68,7 @@ const CompanionListProfile = ({
                           alt={subject}
                           width={35}
                           height={35}
-                          loading="lazy"
+                          priority
                         />
                       </div>
                       <div className="flex flex-col gap-2">
@@ -95,6 +95,7 @@ const CompanionListProfile = ({
                       alt={subject}
                       width={18}
                       height={18}
+                      priority
                     />
                   </div>
                 </TableCell>
@@ -110,6 +111,7 @@ const CompanionListProfile = ({
                       alt="minutes"
                       width={14}
                       height={14}
+                      priority
                       className="md:hidden"
                     />
                   </div>

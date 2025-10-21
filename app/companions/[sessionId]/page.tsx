@@ -42,7 +42,7 @@ const Page = async ({ params }: CompanionSessionPageProps) => {
                 alt={subject}
                 width={35}
                 height={35}
-                loading="lazy"
+                priority
               />
             </div>
             <div className="flex flex-col gap-2">

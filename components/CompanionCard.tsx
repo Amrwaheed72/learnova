@@ -45,6 +45,7 @@ const CompanionCard = async ({
       <p className="text-sm text-black">{topic}</p>
       <div className="flex items-center gap-2">
         <Image
+          priority
           src={'/icons/clock.svg'}
           alt="duration"
           width={13.5}
@@ -54,7 +55,9 @@ const CompanionCard = async ({
       </div>
       <div className="w-full">
         <LoginAlert message="view this session" href={`/companions/${id}`}>
-          <Button className="w-full">Launch Lesson</Button>
+          <Button className="w-full dark:bg-black dark:text-white">
+            Launch Lesson
+          </Button>
         </LoginAlert>
       </div>
     </div>

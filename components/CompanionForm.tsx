@@ -97,6 +97,7 @@ const CompanionForm = () => {
         <Button
           type="submit"
           className="w-full cursor-pointer"
+          
           disabled={form.formState.isSubmitting}
         >
           {form.formState.isSubmitting ? (

@@ -13,10 +13,23 @@ const CallToAction = async () => {
         Pick a name, subject, voice, &personality - and start learning through
         learning conversations that feal natural and fun
       </p>
-      <Image src={`/images/cta.svg`} alt="cta" width={362} height={362} />
+      <Image
+        src={`/images/cta.svg`}
+        priority
+        alt="cta"
+        width={362}
+        height={362}
+      />
       <LoginAlert message="build new companion" href="/companions/new">
         <Button>
-          <Image src={'/icons/plus.svg'} alt="plus" width={12} height={12} />{' '}
+          <Image
+            priority
+            src={'/icons/plus.svg'}
+            className="dark:invert"
+            alt="plus"
+            width={12}
+            height={12}
+          />{' '}
           Build a New Companion
         </Button>
       </LoginAlert>

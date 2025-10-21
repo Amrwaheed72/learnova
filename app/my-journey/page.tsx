@@ -58,6 +58,7 @@ const Page = async () => {
                   alt="checkmark"
                   width={22}
                   height={22}
+                  priority
                 />
                 <p className="text-2xl font-bold">{sessionHistory.length}</p>
               </div>
@@ -70,6 +71,7 @@ const Page = async () => {
                   alt="cap"
                   width={22}
                   height={22}
+                  priority
                 />
                 <p className="text-2xl font-bold">{UserCompanions.length}</p>
               </div>

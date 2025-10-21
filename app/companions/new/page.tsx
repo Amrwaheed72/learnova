@@ -16,7 +16,7 @@ const Page = async () => {
           <Suspense
             fallback={
               <div>
-                <Spinner variant='ring' size='lg' />
+                <Spinner variant="ring" size="lg" />
               </div>
             }
           >
@@ -31,6 +31,7 @@ const Page = async () => {
             alt="companion limit"
             width={360}
             height={230}
+            priority
           />
           <div className="cta-badge">Upgrade Your Plan</div>
           <h1>You have reached your limit</h1>

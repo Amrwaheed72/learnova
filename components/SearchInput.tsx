@@ -37,7 +37,7 @@ const SearchInput = () => {
         width={15}
         height={15}
         className="dark:invert"
-         loading='lazy'
+        priority
       />
       <input
         placeholder="Search Companions..."

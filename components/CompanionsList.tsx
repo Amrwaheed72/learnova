@@ -66,6 +66,7 @@ const CompanionsList = async ({ title, classNames }: Props) => {
                           src={`/icons/${subject}.svg`}
                           alt={subject}
                           width={35}
+                          priority
                           height={35}
                         />
                       </div>
@@ -93,7 +94,7 @@ const CompanionsList = async ({ title, classNames }: Props) => {
                       src={`/icons/${subject}.svg`}
                       alt={subject}
                       width={18}
-                      loading="lazy"
+                      priority
                       height={18}
                     />
                   </div>
@@ -109,7 +110,7 @@ const CompanionsList = async ({ title, classNames }: Props) => {
                       alt="minutes"
                       width={14}
                       height={14}
-                      loading="lazy"
+                      priority
                       className="md:hidden"
                     />
                   </div>
