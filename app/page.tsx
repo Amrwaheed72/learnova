@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import AnimatedWrapper from '@/components/AnimateWrapper';
 import CallToAction from '@/components/CallToAction';
 import CompanionCardContainer from '@/components/CompanionCardContainer';
