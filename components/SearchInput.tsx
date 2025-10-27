@@ -32,7 +32,7 @@ const SearchInput = () => {
   return (
     <div className="relative flex h-fit items-center gap-2 rounded-lg border border-black px-2 py-1 dark:border-white">
       <Image
-        src={'/icons/search.svg'}
+        src={'/icons/search.webp'}
         alt="search"
         width={15}
         height={15}

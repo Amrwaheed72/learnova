@@ -64,7 +64,7 @@ const CompanionListProfile = ({
                         }}
                       >
                         <Image
-                          src={`/icons/${subject}.svg`}
+                          src={`/icons/${subject}.webp`}
                           alt={subject}
                           width={35}
                           height={35}
@@ -91,7 +91,7 @@ const CompanionListProfile = ({
                     }}
                   >
                     <Image
-                      src={`/icons/${subject}.svg`}
+                      src={`/icons/${subject}.webp`}
                       alt={subject}
                       width={18}
                       height={18}
@@ -107,7 +107,7 @@ const CompanionListProfile = ({
                       <span className="max-md:hidden">mins</span>
                     </p>
                     <Image
-                      src={`icons/clock.svg`}
+                      src={`/icons/clock.webp`}
                       alt="minutes"
                       width={14}
                       height={14}

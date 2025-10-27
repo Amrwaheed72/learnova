@@ -14,7 +14,7 @@ const CallToAction = async () => {
         learning conversations that feal natural and fun
       </p>
       <Image
-        src={`/images/cta.svg`}
+        src={`/images/cta.webp`}
         priority
         alt="cta"
         width={362}
@@ -24,7 +24,7 @@ const CallToAction = async () => {
         <Button>
           <Image
             priority
-            src={'/icons/plus.svg'}
+            src={'/icons/plus.webp'}
             className="dark:invert"
             alt="plus"
             width={12}

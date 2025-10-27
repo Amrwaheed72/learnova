@@ -2,16 +2,11 @@
 import { cn, configureAssistant, getSubjectColor } from '@/lib/utils';
 import { vapi } from '@/lib/vapi.sdk';
 import Image from 'next/image';
-import { useEffect, useRef, useState } from 'react';
-import Lottie, { LottieRefCurrentProps } from 'lottie-react';
+import Lottie from 'lottie-react';
 import soundwaves from '@/constants/soundwaves.json';
-import { addToSessionHistory } from '@/lib/actions/companion.actions';
-enum CallStatus {
-  INACTIVE = 'INACTIVE',
-  CONNECTING = 'CONNECTING',
-  ACTIVE = 'ACTIVE',
-  FINISHED = 'FINISHED',
-}
+import { CallStatus } from '@/types/vapi';
+import useCompanion from '@/app/hooks/useCompanion';
+
 const CompanionComponent = ({
   subject,
   name,
@@ -22,57 +17,15 @@ const CompanionComponent = ({
   style,
   voice,
 }: CompanionComponentProps) => {
-  const [callStatus, setCallStatus] = useState(CallStatus.INACTIVE);
-  const [isSpeaking, setIsSpeaking] = useState(false);
-  const [isMuted, setIsMuted] = useState(false);
-  const [messages, setMessages] = useState<SavedMessage[]>([]);
-  const lottieRef = useRef<LottieRefCurrentProps>(null);
-  useEffect(() => {
-    if (lottieRef) {
-      if (isSpeaking) {
-        lottieRef.current?.play();
-      } else {
-        lottieRef.current?.stop();
-      }
-    }
-  }, [isSpeaking, lottieRef]);
-  useEffect(() => {
-    const onCallStart = () => setCallStatus(CallStatus.ACTIVE);
-    const onCallEnd = () => {
-      setCallStatus(CallStatus.FINISHED);
-      addToSessionHistory(companionId);
-    };
-    const onMessage = (message: Message) => {
-      if (message.type === 'transcript' && message.transcriptType === 'final') {
-        const newMessage = {
-          role: message.role,
-          content: message.transcript,
-        };
-        setMessages((prev) => [newMessage, ...prev]);
-      }
-    };
-    const onSpeechStart = () => {
-      setIsSpeaking(true);
-    };
-    const onSpeechEnd = () => {
-      setIsSpeaking(false);
-    };
-    const onError = (error: Error) => console.log(error);
-    vapi.on('call-start', onCallStart);
-    vapi.on('call-end', onCallEnd);
-    vapi.on('message', onMessage);
-    vapi.on('error', onError);
-    vapi.on('speech-start', onSpeechStart);
-    vapi.on('speech-end', onSpeechEnd);
-    return () => {
-      vapi.off('call-start', onCallStart);
-      vapi.off('call-end', onCallEnd);
-      vapi.off('message', onMessage);
-      vapi.off('error', onError);
-      vapi.off('speech-start', onSpeechStart);
-      vapi.off('speech-end', onSpeechEnd);
-    };
-  }, [companionId]);
+  const {
+    messages,
+    callStatus,
+    isMuted,
+    setIsMuted,
+    setCallStatus,
+    lottieRef,
+  } = useCompanion(companionId);
+
   const toggleMicrophone = () => {
     const isMuted = vapi.isMuted();
     vapi.setMuted(!isMuted);
@@ -117,7 +70,7 @@ const CompanionComponent = ({
               )}
             >
               <Image
-                src={`/icons/${subject}.svg`}
+                src={`/icons/${subject}.webp`}
                 alt="subject"
                 width={150}
                 height={150}
@@ -159,7 +112,7 @@ const CompanionComponent = ({
             onClick={toggleMicrophone}
           >
             <Image
-              src={isMuted ? '/icons/mic-off.svg' : '/icons/mic-on.svg'}
+              src={isMuted ? '/icons/mic-off.webp' : '/icons/mic-on.webp'}
               className="dark:invert"
               alt="mic"
               width={36}

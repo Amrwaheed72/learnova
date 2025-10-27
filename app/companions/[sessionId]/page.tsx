@@ -19,7 +19,7 @@ const Page = async ({ params }: CompanionSessionPageProps) => {
   const { sessionId } = await params;
   const { companion } = await getOneCompanion(sessionId);
 
-  const { subject, name, topic, duration, title, voice, style, id } = companion;
+  const { subject, name, topic, duration,voice, style, id } = companion;
   const user = await currentUser();
   if (!user?.id) throw new Error('you must sign in');
 
@@ -38,7 +38,7 @@ const Page = async ({ params }: CompanionSessionPageProps) => {
               }}
             >
               <Image
-                src={`/icons/${subject}.svg`}
+                src={`/icons/${subject}.webp`}
                 alt={subject}
                 width={35}
                 height={35}

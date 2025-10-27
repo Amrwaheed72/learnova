@@ -1,9 +1,8 @@
 'use client';
 import { Moon, Sun } from 'lucide-react';
 import { useTheme } from 'next-themes';
-
 import { Button } from '@/components/ui/button';
-import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
+import ToolTipComponent from './ToolTipComponent';
 
 export function ModeToggle() {
   const { theme, setTheme } = useTheme();
@@ -15,20 +14,17 @@ export function ModeToggle() {
     }
   };
   return (
-    <Tooltip>
-      <TooltipTrigger asChild>
-        <Button
-          className="cursor-pointer"
-          onClick={handleToggleTheme}
-          variant="outline"
-          size="icon"
-        >
-          {theme === 'dark' ? <Sun /> : <Moon />}
-        </Button>
-      </TooltipTrigger>
-      <TooltipContent>
-        {`Change to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-      </TooltipContent>
-    </Tooltip>
+    <ToolTipComponent
+      toolTipContent={`Change to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+    >
+      <Button
+        className="cursor-pointer"
+        onClick={handleToggleTheme}
+        variant="outline"
+        size="icon"
+      >
+        {theme === 'dark' ? <Sun /> : <Moon />}
+      </Button>
+    </ToolTipComponent>
   );
 }

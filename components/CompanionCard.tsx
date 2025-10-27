@@ -21,7 +21,6 @@ const CompanionCard = async ({
   name,
   topic,
   duration,
-  color,
 }: Props) => {
   const { userId } = await auth();
 
@@ -46,7 +45,7 @@ const CompanionCard = async ({
       <div className="flex items-center gap-2">
         <Image
           priority
-          src={'/icons/clock.svg'}
+          src={'/icons/clock.webp'}
           alt="duration"
           width={13.5}
           height={13.5}

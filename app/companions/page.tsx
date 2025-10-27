@@ -7,7 +7,6 @@ import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
 import ToolTipComponent from '@/components/ToolTipComponent';
 import AnimatedWrapper from '@/components/AnimateWrapper';
-import dynamic from 'next/dynamic';
 import LoginAlert from '@/components/LoginAlert';
 
 const Page = async ({ searchParams }: SearchParams) => {

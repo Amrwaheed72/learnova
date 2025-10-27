@@ -8,7 +8,6 @@ import {
 } from '@/components/ui/table';
 import { getRecentSession } from '@/lib/actions/companion.actions';
 import { cn, getSubjectColor } from '@/lib/utils';
-import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import LoginAlert from './LoginAlert';
 
@@ -63,7 +62,7 @@ const CompanionsList = async ({ title, classNames }: Props) => {
                         }}
                       >
                         <Image
-                          src={`/icons/${subject}.svg`}
+                          src={`/icons/${subject}.webp`}
                           alt={subject}
                           width={35}
                           priority
@@ -91,7 +90,7 @@ const CompanionsList = async ({ title, classNames }: Props) => {
                     }}
                   >
                     <Image
-                      src={`/icons/${subject}.svg`}
+                      src={`/icons/${subject}.webp`}
                       alt={subject}
                       width={18}
                       priority
@@ -106,7 +105,7 @@ const CompanionsList = async ({ title, classNames }: Props) => {
                       {duration} <span className="max-md:hidden">mins</span>
                     </p>
                     <Image
-                      src="icons/clock.svg"
+                      src="/icons/clock.webp"
                       alt="minutes"
                       width={14}
                       height={14}

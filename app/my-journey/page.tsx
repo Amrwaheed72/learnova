@@ -15,10 +15,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+import CompanionListProfile from '@/components/CompanionListProfile';
 
-const CompanionListProfile = dynamic(
-  () => import('@/components/CompanionListProfile'),
-);
 const Page = async () => {
   const user = await currentUser();
   if (!user) {
@@ -54,7 +52,7 @@ const Page = async () => {
             <div className="flex h-fit flex-col gap-2 rounded-lg border border-black p-3">
               <div className="flex items-center gap-2">
                 <Image
-                  src={`/icons/check.svg`}
+                  src={`/icons/check.webp`}
                   alt="checkmark"
                   width={22}
                   height={22}
@@ -67,7 +65,7 @@ const Page = async () => {
             <div className="flex h-fit flex-col gap-2 rounded-lg border border-black p-3">
               <div className="flex items-center gap-2">
                 <Image
-                  src={`/icons/cap.svg`}
+                  src={`/icons/cap.webp`}
                   alt="cap"
                   width={22}
                   height={22}

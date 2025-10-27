@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import { Bricolage_Grotesque } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/Navbar';
-import Providers from './Providers';
 import { Toaster } from '@/components/ui/sonner';
+import ClientLayoutProvider from './ClientLayoutProvider';
 
 const bricolage = Bricolage_Grotesque({
   variable: '--font-bricolage',
@@ -23,11 +23,11 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${bricolage.variable} antialiased`}>
-        <Providers>
+        <ClientLayoutProvider>
           <Toaster position="top-right" closeButton />
           <Navbar />
           <main>{children}</main>
-        </Providers>
+        </ClientLayoutProvider>
       </body>
     </html>
   );

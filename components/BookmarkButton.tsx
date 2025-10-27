@@ -48,7 +48,7 @@ const BookmarkButton = ({
           <Spinner variant="ring" size="sm" />
         ) : (
           <Image
-            src={`${isBookmarked ? '/icons/bookmark-filled.svg' : '/icons/bookmark.svg'}`}
+            src={`${isBookmarked ? '/icons/bookmark-filled.webp' : '/icons/bookmark.webp'}`}
             alt="bookmark"
             width={12.5}
             height={15}
