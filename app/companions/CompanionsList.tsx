@@ -1,9 +1,9 @@
 import CompanionCard from '@/components/CompanionCard';
 import Empty from '@/components/Empty';
-import { getAllCompanions } from '@/lib/actions/companion.actions';
 import { getSubjectColor } from '@/lib/utils';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
+import { getAllCompanions } from '@/lib/actions/companions';
 
 export default async function CompanionsList({
   subject,

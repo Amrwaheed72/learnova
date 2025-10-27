@@ -10,17 +10,16 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-
 } from './ui/dialog';
 import { useState } from 'react';
 interface LoginAlertProps {
   message: string;
-  href?: string ;
+  href?: string;
   children: React.ReactNode;
 }
 
 const LoginAlert = ({ message, href, children }: LoginAlertProps) => {
-    const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const { isSignedIn } = useUser();
   const router = useRouter();
 

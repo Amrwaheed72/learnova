@@ -1,4 +1,4 @@
-import { addToSessionHistory } from '@/lib/actions/companion.actions';
+import { addToSessionHistory } from '@/lib/actions/userOperations';
 import { LottieRefCurrentProps } from 'lottie-react';
 import { useEffect, useRef, useState } from 'react';
 import { vapi } from '@/lib/vapi.sdk';
@@ -56,7 +56,14 @@ const useCompanion = (companionId: string) => {
       vapi.off('speech-end', onSpeechEnd);
     };
   }, [companionId]);
-  return { messages, callStatus, isMuted, setIsMuted, setCallStatus,lottieRef };
+  return {
+    messages,
+    callStatus,
+    isMuted,
+    setIsMuted,
+    setCallStatus,
+    lottieRef,
+  };
 };
 
 export default useCompanion;

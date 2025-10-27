@@ -2,12 +2,10 @@ import {
   getUserBookmarks,
   getUserCompanions,
   getUserSessions,
-} from '@/lib/actions/companion.actions';
+} from '@/lib/actions/userOperations';
 import { currentUser } from '@clerk/nextjs/server';
 import Image from 'next/image';
-import { redirect } from 'next/navigation';
 import AnimatedWrapper from '@/components/AnimateWrapper';
-import dynamic from 'next/dynamic';
 
 import {
   Accordion,
@@ -19,12 +17,10 @@ import CompanionListProfile from '@/components/CompanionListProfile';
 
 const Page = async () => {
   const user = await currentUser();
-  if (!user) {
-    redirect('/sign-in');
-  }
-  const { UserCompanions } = await getUserCompanions(user.id);
-  const { companions: sessionHistory } = await getUserSessions(user.id);
-  const { companions: BookMarked } = await getUserBookmarks(user.id);
+
+  const { UserCompanions } = await getUserCompanions();
+  const { companions: sessionHistory } = await getUserSessions();
+  const { companions: BookMarked } = await getUserBookmarks();
 
   return (
     <AnimatedWrapper type="none">
@@ -32,7 +28,7 @@ const Page = async () => {
         <div className="flex items-center justify-between gap-4 max-sm:flex-col">
           <div className="flex items-center gap-4">
             <Image
-              src={user?.imageUrl}
+              src={user?.imageUrl || ''}
               alt={user?.firstName ?? 'user'}
               width={110}
               height={110}

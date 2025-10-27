@@ -6,10 +6,10 @@ import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
 
 import FormFieldComponent from './FormFieldComponent';
-import { createCompanion } from '@/lib/actions/companion.actions';
 import { redirect } from 'next/navigation';
 import { toast } from 'sonner';
 import { Spinner } from './ui/spinner';
+import { createCompanion } from '@/lib/actions/companions';
 
 const formSchema = z.object({
   name: z.string().min(1, { message: 'Companion is Required' }),
@@ -97,7 +97,6 @@ const CompanionForm = () => {
         <Button
           type="submit"
           className="w-full cursor-pointer"
-          
           disabled={form.formState.isSubmitting}
         >
           {form.formState.isSubmitting ? (

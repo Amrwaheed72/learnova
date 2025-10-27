@@ -1,7 +1,6 @@
 'use client';
 import { Button } from './ui/button';
 
-import { DeleteCompanion } from '@/lib/actions/companion.actions';
 import { toast } from 'sonner';
 import {
   Dialog,
@@ -13,18 +12,18 @@ import {
 } from './ui/dialog';
 import { useTransition } from 'react';
 import { Spinner } from './ui/spinner';
+import { DeleteCompanion } from '@/lib/actions/companions';
 
 interface Props {
-  userId: string | null;
   companionId: string;
   children: React.ReactNode;
 }
-const DeleteCompanionComponent = ({ userId, companionId, children }: Props) => {
+const DeleteCompanionComponent = ({ companionId, children }: Props) => {
   const [isPending, startTransition] = useTransition();
   const handleDelete = () => {
     startTransition(async () => {
       try {
-        await DeleteCompanion({ userId, companionId });
+        await DeleteCompanion({ companionId });
         toast.success('Companion deleted successfully');
       } catch (error) {
         toast.error('Could not delete companion, try again later');

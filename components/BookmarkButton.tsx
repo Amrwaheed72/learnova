@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { Button } from './ui/button';
 import { toast } from 'sonner';
-import { addBookmark, removeBookmark } from '@/lib/actions/companion.actions';
+import { addBookmark, removeBookmark } from '@/lib/actions/userOperations';
 import { useState, useTransition } from 'react';
 import { Spinner } from './ui/spinner';
 import dynamic from 'next/dynamic';
@@ -14,7 +14,6 @@ const BookmarkButton = ({
 }: {
   companionId: string;
   isBookmarked: boolean;
-  userId: string | null;
 }) => {
   const [isPending, startTransition] = useTransition();
   const [isBookmarked, setIsBookmarked] = useState(initialIsBookmarked);

@@ -1,8 +1,7 @@
 import Image from 'next/image';
-import { auth } from '@clerk/nextjs/server';
 import { getSubjectColor } from '@/lib/utils';
 import BookmarkButton from './BookmarkButton';
-import { getUserBookmarks } from '@/lib/actions/companion.actions';
+import { getUserBookmarks } from '@/lib/actions/userOperations';
 import { Button } from './ui/button';
 import LoginAlert from './LoginAlert';
 
@@ -15,16 +14,8 @@ interface Props {
   color: string;
 }
 
-const CompanionCard = async ({
-  id,
-  subject,
-  name,
-  topic,
-  duration,
-}: Props) => {
-  const { userId } = await auth();
-
-  const { companions } = await getUserBookmarks(userId);
+const CompanionCard = async ({ id, subject, name, topic, duration }: Props) => {
+  const { companions } = await getUserBookmarks();
 
   const isBookmarked = companions.some((c) => c.id === id);
   return (
@@ -34,11 +25,7 @@ const CompanionCard = async ({
     >
       <div className="flex items-center justify-between">
         <div className="subject-badge">{subject}</div>
-        <BookmarkButton
-          userId={userId}
-          isBookmarked={isBookmarked}
-          companionId={id}
-        />
+        <BookmarkButton isBookmarked={isBookmarked} companionId={id} />
       </div>
       <h2 className="text-2xl font-bold dark:text-black">{name} </h2>
       <p className="text-sm text-black">{topic}</p>

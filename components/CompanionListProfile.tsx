@@ -121,7 +121,6 @@ const CompanionListProfile = ({
                     <div>
                       <DeleteCompanionComponent
                         companionId={id}
-                        userId={user.id}
                       >
                         <Button className="cursor-pointer" variant={'outline'}>
                           <Eraser />

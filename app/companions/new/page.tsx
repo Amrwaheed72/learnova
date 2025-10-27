@@ -1,7 +1,7 @@
 import CompanionForm from '@/components/CompanionForm';
 import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
-import { newCompanionPermissions } from '@/lib/actions/companion.actions';
+import { newCompanionPermissions } from '@/lib/actions/companions';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Suspense } from 'react';

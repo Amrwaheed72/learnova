@@ -1,17 +1,12 @@
 import AnimatedWrapper from '@/components/AnimateWrapper';
 import BookmarkButton from '@/components/BookmarkButton';
-import {
-  getOneCompanion,
-  getUserBookmarks,
-} from '@/lib/actions/companion.actions';
+import CompanionComponent from '@/components/CompanionComponent';
+import { getOneCompanion } from '@/lib/actions/companions';
+import { getUserBookmarks } from '@/lib/actions/userOperations';
 import { getSubjectColor } from '@/lib/utils';
 import { currentUser } from '@clerk/nextjs/server';
-import dynamic from 'next/dynamic';
 import Image from 'next/image';
 
-const CompanionComponent = dynamic(
-  () => import('@/components/CompanionComponent'),
-);
 interface CompanionSessionPageProps {
   params: Promise<{ sessionId: string }>;
 }
@@ -19,7 +14,7 @@ const Page = async ({ params }: CompanionSessionPageProps) => {
   const { sessionId } = await params;
   const { companion } = await getOneCompanion(sessionId);
 
-  const { subject, name, topic, duration,voice, style, id } = companion;
+  const { subject, name, topic, duration, voice, style, id } = companion;
   const user = await currentUser();
   if (!user?.id) throw new Error('you must sign in');
 

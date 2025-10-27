@@ -6,11 +6,10 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { getRecentSession } from '@/lib/actions/companion.actions';
+import { getRecentSession } from '@/lib/actions/userOperations';
 import { cn, getSubjectColor } from '@/lib/utils';
 import Image from 'next/image';
 import LoginAlert from './LoginAlert';
-
 
 interface Props {
   title: string;

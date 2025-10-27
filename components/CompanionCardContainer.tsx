@@ -1,9 +1,9 @@
-import { getAllCompanions } from '@/lib/actions/companion.actions';
 import CompanionCard from './CompanionCard';
 import Empty from './Empty';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import AnimatedWrapper from './AnimateWrapper';
+import { getAllCompanions } from '@/lib/actions/companions';
 
 const CompanionCardContainer = async () => {
   const { companions } = await getAllCompanions({ limit: 3 });
