@@ -4,7 +4,7 @@ import CompanionCardContainer from '@/components/CompanionCardContainer';
 import CompanionsList from '@/components/CompanionsList';
 import { Spinner } from '@/components/ui/spinner';
 import { Suspense } from 'react';
-const Page = async () => {
+const Page = () => {
   return (
     <AnimatedWrapper type="none">
       <div className="flex flex-col gap-4">
